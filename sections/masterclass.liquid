@@ -1,0 +1,184 @@
+<section data-section-id="{{ section.id }}" class="masterclass">
+	<div class="container-fluid container-lg">
+		<div class="row">
+			<div class="col-12 col-lg-4">
+				<div class="row masterclass-first">
+					<div class="col-12 col-md-7 col-lg-12 masterclass-first-text">
+						<div class="masterclass-first-text-inner">
+							{% if section.settings.mas_title != '' %}<h2 class="maintitle">{{ section.settings.mas_title }}</h2>{% endif %}
+							{% if section.settings.mas_text != '' %}
+								<div class="masterclass_text">
+									{{ section.settings.mas_text }}
+								</div>
+							{% endif %}
+						</div>
+					</div>
+					<div class="col-12 col-md-5 col-lg-12 masterclass-first-image">
+						{% if section.settings.mas_img %}
+						<div class="masterclass-first-image-wrapper">
+							<img class="lazyload" src="{{ section.settings.mas_img | img_url: '12x12' }}"
+							data-src="{{ section.settings.mas_img | img_url: '1000x'}}"
+							data-sizes="auto" alt="{{ section.settings.mas_title }}"/>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-lg-8">
+				<div class="master_blocks">
+					{% for block in section.blocks %}
+					<div class="master_items">
+						{% if block.settings.mas_t_pretitle != '' %}<h5>{{ block.settings.mas_t_pretitle }}</h5>{% endif %}
+						{% if block.settings.mas_t_title != '' %}<h3>{{ block.settings.mas_t_title }}</h3>{% endif %}
+						{% if block.settings.mas_t_text != '' %}<div class="item_text">
+							{{ block.settings.mas_t_text }}
+						</div>{% endif %}
+						{% if block.settings.mas_t_btext != '' %}
+							{% if block.settings.mas_t_videourl != '' %}
+								<a href="#videoPopup" class="watch-button dynamicVideoShow" data-toggle="modal" data-videourl="{{ block.settings.mas_t_videourl }}">{{ block.settings.mas_t_btext }}</a>
+							{% else %}
+							<a href="{{ block.settings.mas_t_url }}" class="watch-button dynamicvideo" >{{ block.settings.mas_t_btext }}</a>
+							{% endif %}
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>	
+				<div class="master_all_button">
+				{% if section.settings.mas_all_text != '' %}<a class="primary-button" href="{{ section.settings.mas_all_url }}">{{ section.settings.mas_all_text }}</a>{% endif %}	
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% schema %}
+{
+  "name": {
+    "en": "Masterclass"
+	},
+	"class" : "masterclass-section",
+	"settings": [
+		{
+			"type": "header",
+			"content": {
+				"en": "Main Settings",
+				"ru": "Main Settings"
+			}
+		},
+		{
+      "type": "text",
+      "id": "mas_title",
+      "label": {
+        "en": "Title",
+        "ru": "Title"
+			},
+			"default" : "Masterclasses & Schedules"
+		},
+		{
+      "type": "richtext",
+      "id": "mas_text",
+      "label": {
+        "en": "Text",
+        "ru": "Text"
+			},
+			"default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>"			
+		},
+		{
+      "type": "image_picker",
+			"id": "mas_img",
+      "label": {
+        "en": "Image",
+        "ru": "Image"
+			}
+		},
+		{
+      "type": "text",
+      "id": "mas_all_text",
+      "label": {
+        "en": "Bottom Button Text",
+        "ru": "Bottom Button Text"
+			},
+			"default" : "watch all tutorials"
+		},	
+		{
+      "type": "url",
+      "id": "mas_all_url",
+      "label": {
+        "en": "Bottom Button Url",
+        "ru": "Bottom Button Url"
+			}
+		}
+	],
+	"blocks": [
+		{
+			"type": "masterclass_t",
+			"name": {
+				"en" : "Masterclass Tutorials",
+				"ru" : "Masterclass Tutorials"
+			},
+			"settings": [
+				{
+					"id": "mas_t_pretitle",
+					"type": "text",
+					"label": {
+						"en" : "Pre Title",
+						"ru" : "Pre Title"
+					}
+				},
+				{
+					"id": "mas_t_title",
+					"type": "text",
+					"label": {
+						"en" : "Title",
+						"ru" : "Title"
+					}
+				},
+				{
+					"id": "mas_t_text",
+					"type": "richtext",
+					"label": {
+						"en" : "Text",
+						"ru" : "Text"
+					}
+				},
+				{
+					"id": "mas_t_btext",
+					"type": "text",
+					"label": {
+						"en" : "Button Text",
+						"ru" : "Button Text"
+					}
+				},
+				{
+					"id": "mas_t_url",
+					"type": "url",
+					"label": {
+						"en" : "Button Url",
+						"ru" : "Button Url"
+					}
+				},
+				{
+					"id": "mas_t_videourl",
+					"type": "text",
+					"label": {
+						"en" : "Custom Video Url",
+						"ru" : "Custom Video Url"
+					}
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": {
+				"en": "Masterclass",
+				"ru": "Masterclass"
+			},
+			"category": {
+				"en": "Home Page",
+				"ru": "Home Page"
+			}
+		}
+	]
+}
+{% endschema %}

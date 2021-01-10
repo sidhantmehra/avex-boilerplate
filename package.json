@@ -5,8 +5,9 @@
   "main": "gulpfile.js",
   "scripts": {
     "gulp-watch": "gulp watch",
-    "theme-watch": "theme watch",
-    "watch": "npm-run-all --parallel gulp-watch theme-watch"
+    "theme-watch": "theme watch --allow-live",
+    "watch": "npm-run-all --parallel gulp-watch theme-watch",
+    "download" : "theme download"
   },
   "author": "",
   "license": "ISC",
@@ -18,7 +19,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
-    "@shopify/themekit": "^1.1.4",
+    "@shopify/themekit": "^1.1.6",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2016": "^6.24.1",

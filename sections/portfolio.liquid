@@ -1,0 +1,228 @@
+<section data-section-id="{{ section.id }}" class="portfolio">
+	<span class="bg" style="background-image: url({{ section.settings.port_bg | img_url: 'master' }});"></span>
+	<span class="scrolling-letter" style="background-image: url({{ section.settings.port_svg  }});"></span>
+	<div class="container-fluid container-lg">
+		<div class="row">
+			<div class="col-12 portfolio-first">
+				{% if section.settings.port_title != '' %}<h2 class="h1">{{ section.settings.port_title }}</h2>{% endif %}
+				<div class="portfolio-slider-wrapper">
+					<div class="portflio-main-wrapper">
+						<div class="portofolio-slider">
+							{% for block in section.blocks %}
+								<div class="portfolio-item" {{ block.shopify_attributes }}>
+									<a href="{{ block.settings.port_b_url }}">
+									{% if block.settings.port_b_img != '' %}<img  class="lazyload"
+									src="{{ block.settings.port_b_img | img_url: '12x12' }}"
+									data-src="{{ block.settings.port_b_img | img_url: '1000x'}}"
+									data-sizes="auto" alt="{{ block.settings.port_b_title }}"/>{% endif %}
+									{% if block.settings.port_b_title != '' %}<h3>{{ block.settings.port_b_title }}</h3>{% endif %}
+									</a>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 portfolio-second">
+				<div class="portfolio-second-blocks">
+					<div class="p_s_2_text_mobile">
+						{{ section.settings.port_text }}
+					</div>
+					{% if section.settings.port_img1 != '' %}
+					<div class="p_s_1_wrapper scrolling-block">
+						<a href="{{ section.settings.port_img1url }}" class="p_s_1 ">
+							<img class="lazyload"
+							src="{{ section.settings.port_img1 | img_url: '12x12' }}"
+							data-src="{{ section.settings.port_img1 | img_url: '650x' }}"
+							data-sizes="auto" alt="{{ section.settings.port_img1txt }}"/>
+							{% if section.settings.port_img1txt != '' %}<h3>{{ section.settings.port_img1txt }}</h3>{% endif %}
+						</a>
+					</div>
+					{% endif %}
+					<div class="p_s_2 ">
+						<div class="p_s_2_text">
+							<div class="p_s_2_text_inner">
+								{{ section.settings.port_text }}
+							</div>
+						</div>
+						<div class="p_s_2_urlWrapper">
+							<a href="{{ section.settings.port_img2url }}" class="p_s_2_url">
+								<img class="lazyload"
+								src="{{ section.settings.port_img2 | img_url: '12x12' }}"
+								data-src="{{ section.settings.port_img2 | img_url: '620x' }}"
+								data-sizes="auto" alt="{{ section.settings.port_img2txt }}"/>
+								{% if section.settings.port_img2txt != '' %}<h3>{{ section.settings.port_img2txt }}</h3>{% endif %}
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% schema %}
+{
+  "name": {
+    "en": "Portfolio"
+	},
+	"class" : "portfolio-section",
+	"settings": [
+		{
+			"type": "header",
+			"content": {
+				"en": "Main Settings",
+				"ru": "Main Settings"
+			}
+		},
+		{
+      "type": "image_picker",
+      "id": "port_bg",
+      "label": {
+        "en": "BG Image",
+        "ru": "BG Image"
+			}			
+		},
+		{
+      "type": "text",
+      "id": "port_svg",
+      "label": {
+        "en": "SVG",
+        "ru": "SVG"
+			}			
+		},
+		{
+      "type": "text",
+      "id": "port_title",
+      "label": {
+        "en": "Title",
+        "ru": "Title"
+			},
+			"default" : "Portfolio"
+		},
+		{
+      "type": "richtext",
+      "id": "port_text",
+      "label": {
+        "en": "Text",
+        "ru": "Text"
+			},
+			"default" : "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>"
+		},
+		{
+			"type": "header",
+			"content": {
+				"en": "Image Block 1",
+				"ru": "Image Block 1"
+			}
+		},
+		{
+      "type": "image_picker",
+      "id": "port_img1",
+      "label": {
+        "en": "Image 1",
+        "ru": "Image 1"
+			}			
+		},
+		{
+      "type": "text",
+      "id": "port_img1txt",
+      "label": {
+        "en": "Image Block 1 Text",
+        "ru": "Image Block 1 Text"
+			},
+			"default": "Evening Make-Up"			
+		},
+		{
+      "type": "url",
+      "id": "port_img1url",
+      "label": {
+        "en": "Image Block 1 Url",
+        "ru": "Image Block 1 Url"
+			}	
+		},
+		
+		{
+			"type": "header",
+			"content": {
+				"en": "Image Block 2",
+				"ru": "Image Block 2"
+			}
+		},
+		{
+      "type": "image_picker",
+      "id": "port_img2",
+      "label": {
+        "en": "Image 2",
+        "ru": "Image 2"
+			}			
+		},
+		{
+      "type": "text",
+      "id": "port_img2txt",
+      "label": {
+        "en": "Image Block 2 Text",
+        "ru": "Image Block 2 Text"
+			},
+			"default": "Wedding Make-Up"			
+		},
+		{
+      "type": "url",
+      "id": "port_img2url",
+      "label": {
+        "en": "Image Block 2 Url",
+        "ru": "Image Block 2 Url"
+			}	
+		}
+	],
+	"blocks": [
+		{
+			"type": "portfolio",
+			"name": {
+				"en" : "Portfolio",
+				"ru" : "Portfolio"
+			},
+			"settings": [
+				{
+					"id": "port_b_img",
+					"type": "image_picker",
+					"label": {
+						"en" : "Item Image",
+						"ru" : "Item Image"
+					}
+				},
+				{
+					"id": "port_b_title",
+					"type": "text",
+					"label": {
+						"en" : "Item Title",
+						"ru" : "Item Title"
+					}
+				},
+				{
+					"id": "port_b_url",
+					"type": "url",
+					"label": {
+						"en" : "Item Url",
+						"ru" : "Item Url"
+					}
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": {
+				"en": "Portfolio",
+				"ru": "Portfolio"
+			},
+			"category": {
+				"en": "Home Page",
+				"ru": "Home Page"
+			}
+		}
+	]
+}
+{% endschema %}

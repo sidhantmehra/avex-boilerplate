@@ -30,28 +30,35 @@
 
   <!-- Shopify Header Hooks -->
   {{ content_for_header }}
-
-  <!-- Critical CSS -->
-  <style>{% include 'critical-css' %}</style>
   
+  <!-- Critical CSS -->
+  <style>{% render 'critical-css' %}</style>
+  {{ 'common.scss.css' | asset_url | stylesheet_tag }}
+  
+  {% comment %} TODO: Add Cookie scripts {% endcomment %}
   <!-- Critical JS -->
-  <script async>{% include 'critical-js' %}</script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      loadjscssfile("{{ 'common.min.js' | asset_url }}", "js");     
-      loadjscssfile("{{ 'common.scss.css' | asset_url }}", "css");
-      {% assign jsname = template.name | append: '.min.js' %}
-      {% assign scssname = template.name | append: '.scss.css' %}
-      loadjscssfile("{{ jsname | asset_url }}", "js");
-      loadjscssfile("{{ scssname | asset_url }}", "css");
-    }, false);
-  </script>
+  <script>{% render 'critical-js' %}</script>
 </head>
-<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }}">
-  {% comment %} {% section 'header' %} {% endcomment %}
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }} template-{{ template.suffix }}">
+  {% section 'header' %} 
   <main class="main-content" role="main">
     {{ content_for_layout }}
   </main>
-  {% comment %} {% section 'footer' %} {% endcomment %}   
+  {% section 'footer' %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', async function() {
+    loadjscssfile("{{ 'common.min.js' | asset_url }}", "js");
+    
+    //TODO: check for css.liquid load
+    //loadjscssfile("{{ 'common.css.liquid' | asset_url }}", "css");
+
+    //Dynamic css/js load
+    {% assign jsname = template.name | append: '.min.js' %}
+    {% assign scssname = template.name | append: '.scss.css' %}
+    loadjscssfile("{{ jsname | asset_url }}", "js");
+    loadjscssfile("{{ scssname | asset_url }}", "css");
+  }, false);
+</script>
 </body>
 </html>

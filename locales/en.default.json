@@ -1,5 +1,11 @@
 {
   "general": {
+    "navigation": {
+      "Portfolio": "Portfolio"
+    },
+    "common": {
+      "signup": "Sign Up"
+    },
     "accessibility": {
       "refresh_page": "Choosing a selection results in a full page refresh.",
       "selection_help": "Press the space key then arrow keys to make a selection.",

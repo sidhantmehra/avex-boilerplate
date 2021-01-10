@@ -1,0 +1,58 @@
+<section data-section-id="{{ section.id }}" class="form">
+	<span style="background-image: url({{ section.settings.form_bg | img_url: '940x'}})" class="bg"></span>
+	<div class="container-fluid container-lg" style="position: relative;">
+		<div class="row">
+			<div class="col-12 col-md-3 col-lg-5 form-col-img">
+				{% if section.settings.form_bg %}
+				<img class="lazyload" src="{{ section.settings.form_bg | img_url: '12x12' }}"
+				data-src="{{ section.settings.form_bg | img_url: '940x'}}"
+				data-sizes="auto" alt="Form Img"/>
+				{% endif %}
+			</div>
+			<div class="col-12 col-md-9 col-lg-7 form-col scrolling-reverse">
+					<div class="form_wrapper">
+						[nerdy-form:1247]
+					</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+
+{% schema %}
+{
+  "name": {
+    "en": "Form"
+	},
+	"class" : "form-section",
+	"settings": [
+		{
+			"type": "header",
+			"content": {
+				"en": "Main Settings",
+				"ru": "Main Settings"
+			}
+		},
+		{
+      "type": "image_picker",
+      "id": "form_bg",
+      "label": {
+        "en": "BG Image",
+        "ru": "BG Image"
+			}			
+		}
+	],
+	"presets": [
+		{
+			"name": {
+				"en": "Form",
+				"ru": "Form"
+			},
+			"category": {
+				"en": "Home Page",
+				"ru": "Home Page"
+			}
+		}
+	]
+}
+{% endschema %}
