@@ -29,3 +29,9 @@
 
 6. Fully customizable and extendable
 
+
+## Todos
+
+1. Have the possibility to control the loading order of lazyloaded scripts(for example: having a dependency list), because the browser may load the first script that is declared to be lazyloaded later than the second as the latter may be lighter. This may lead to errors if the second script depends on the first.
+
+2. Find out how we can implicitly import scss resource files to all scss files. By this we could avoid importing `scss/utils/index` in all scss files where we need mixins. 
