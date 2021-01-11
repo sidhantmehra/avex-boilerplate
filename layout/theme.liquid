@@ -19,7 +19,7 @@
 
   <!-- Meta Desc -->
   {% if page_description %}
-  <meta name="description" content="{{ page_description | escape }}">
+    <meta name="description" content="{{ page_description | escape }}">
   {% endif %}
 
   <!-- SEO and Social Media Meta -->
@@ -31,11 +31,12 @@
   <!-- Shopify Header Hooks -->
   {{ content_for_header }}
   
+  <!-- CSS Vars -->
+  {% render 'css-vars' %}
+  
   <!-- Critical CSS -->
   <style>{% render 'critical-css' %}</style>
-  {{ 'common.scss.css' | asset_url | stylesheet_tag }}
   
-  {% comment %} TODO: Add Cookie scripts {% endcomment %}
   <!-- Critical JS -->
   <script>{% render 'critical-js' %}</script>
 </head>
@@ -48,17 +49,16 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', async function() {
+    loadjscssfile("{{ 'common.css.liquid' | asset_url }}", "css");
     loadjscssfile("{{ 'common.min.js' | asset_url }}", "js");
-    
-    //TODO: check for css.liquid load
-    //loadjscssfile("{{ 'common.css.liquid' | asset_url }}", "css");
 
     //Dynamic css/js load
     {% assign jsname = template.name | append: '.min.js' %}
     {% assign scssname = template.name | append: '.scss.css' %}
-    loadjscssfile("{{ jsname | asset_url }}", "js");
     loadjscssfile("{{ scssname | asset_url }}", "css");
+    loadjscssfile("{{ jsname | asset_url }}", "js");
   }, false);
 </script>
+
 </body>
 </html>
