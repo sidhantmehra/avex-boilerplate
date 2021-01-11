@@ -15,7 +15,7 @@
 
 
 
-## Features
+## Top Features
 
 1. Upload ready built CSS and JS files to shopify
 
@@ -25,7 +25,7 @@
 
 4. Critical JS/CSS are inlined to get higher SEO scores
 
-4. Usage of CSS Variables in `/snippets/css-vars.liquid` to set variables through Shopify's Theme Editor and use them in the SCSS code
+5. Usage of CSS Variables in `/snippets/css-vars.liquid` to set variables through Shopify's Theme Editor and use them in the SCSS code
 
-5. Fully customizable and extendable
+6. Fully customizable and extendable
 
