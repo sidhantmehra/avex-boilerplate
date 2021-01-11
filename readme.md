@@ -17,7 +17,7 @@
 
 ## Features
 
-1. Upload ready built css and js files to shopify
+1. Upload ready built CSS and JS files to shopify
 
 2. Higher SEO score as as non-critical assets are lazyloaded
 
