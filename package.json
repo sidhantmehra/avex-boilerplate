@@ -7,11 +7,13 @@
     "gulp-watch": "gulp watch",
     "theme-watch": "theme watch --allow-live",
     "watch": "npm-run-all --parallel gulp-watch theme-watch",
-    "download": "theme download"
+    "download": "theme download",
+    "zip": "node zipper.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "archiver": "^5.2.0",
     "bootstrap": "^4.4.1",
     "gulp-filter": "^6.0.0",
     "lazysizes": "^5.2.0",

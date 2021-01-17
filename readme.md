@@ -9,9 +9,12 @@
 
 3. Make sure [Themekit](https://shopify.github.io/themekit) is installed - `theme help`
 
-4. Add `config.yml`
+4. Run npm command `npm run zip` to output `avextheme.zip` and upload it to shopify store.
 
-4. Run `npm run watch` to simultaneously watch, build and upload changes to Shopify
+5. Add `config.yml` (use sample - `sample-config.yml`).
+
+6. Run `npm run watch` to simultaneously watch, build and upload changes to Shopify
+
 
 
 
