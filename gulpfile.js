@@ -62,6 +62,8 @@ function critical_scss() {
       .pipe(dest(files.snippetsDir))
   );
 }
+
+//TODO: Create criticalcss with initial loading elements
 // Common SCSS
 function common_scss() {
   return src(files.common_scssPath)
