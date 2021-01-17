@@ -1,5 +1,5 @@
 "use strict";
-const { src, dest, watch, series, parallel } = require("gulp");
+const { src, dest, watch } = require("gulp");
 const babel = require("gulp-babel");
 const autoprefixer = require("gulp-autoprefixer");
 const changed = require("gulp-changed");
@@ -13,15 +13,13 @@ const uglify = require("gulp-uglify");
  */
 const files = {
   mainPath: "/",
-  imagesPath: ["src/scss/images/**/*", "!src/scss/images/temp/**/*"],
   fonts: [
     "./src/fonts/*.woff",
     "./src/fonts/*.woff2",
     "./src/fonts/*.ttf",
-    // "./src/fonts/*.svg",
     "!./src/fonts/*.scss",
   ],
-  vendor_scssPath: "./src/scss/vendor/*.*css",
+  vendor_scssPath: "./src/scss/vendor/*.*",
   templates_scssPath: "./src/scss/templates/*.scss",
   critical_scssPath: "./src/scss/critical.scss",
   common_scssPath: "./src/scss/common.scss",
@@ -41,7 +39,9 @@ const files = {
 
 function templates_scss() {
   return src(files.templates_scssPath)
-    .pipe(sass().on("error", sass.logError))
+    .pipe(sass({
+      outputStyle: "compressed"
+    }).on("error", sass.logError))
     .pipe(autoprefixer({ cascade: false }))
     .pipe(rename({ suffix: ".css", extname: ".liquid" }))
     .pipe(dest(files.assetsDir));
@@ -53,8 +53,7 @@ function critical_scss() {
     src(files.critical_scssPath)
       .pipe(
         sass({
-          outputStyle: "compressed",
-          includePaths: ["./node_modules"],
+          outputStyle: "compressed"
         }).on("error", sass.logError)
       )
       .pipe(autoprefixer({ cascade: false }))
@@ -63,13 +62,14 @@ function critical_scss() {
   );
 }
 
-//TODO: Create criticalcss with initial loading elements
-// Common SCSS
+// Vendor CSS + Common SCSS
 function common_scss() {
-  return src(files.common_scssPath)
-    .pipe(sass().on("error", sass.logError))
+  return src([files.vendor_scssPath, files.common_scssPath])
+    .pipe(sass({
+      outputStyle: 'compressed'
+    }).on("error", sass.logError))
     .pipe(autoprefixer({ cascade: false }))
-    .pipe(rename("common.css.liquid"))
+    .pipe(concat("common.css.liquid"))
     .pipe(dest(files.assetsDir));
 }
 
@@ -86,20 +86,7 @@ function templates_js() {
     .pipe(dest(files.assetsDir));
 }
 
-// function jsVendor() {
-//   return src(files.vendor_jsPath)
-//     .pipe(
-//       babel({
-//         presets: ["@babel/preset-env"],
-//       })
-//     )
-//     .pipe(concat("vendor.js"))
-//     .pipe(rename("vendor.min.js"))
-//     .pipe(uglify())
-//     .pipe(dest(files.assetsDir));
-// }
 
-//TODO: Cookies scripts
 function critical_js() {
   return src(files.critical_jsPath)
     .pipe(
@@ -113,6 +100,7 @@ function critical_js() {
     .pipe(dest(files.snippetsDir));
 }
 
+// Vendor JS + Common JS
 function common_js() {
   return src([files.vendor_jsPath, files.common_jsPath])
     .pipe(
@@ -126,14 +114,6 @@ function common_js() {
     .pipe(dest(files.assetsDir));
 }
 
-/**
- * Images task
- */
-function images() {
-  return src(files.imagesPath)
-    .pipe(changed(files.assetsDir)) // ignore unchanged files
-    .pipe(dest(files.assetsDir));
-}
 
 /**
  * Fonts
@@ -148,17 +128,17 @@ function fonts() {
  * Watch task
  */
 const watchTask = () => {
-  watch(files.imagesPath, images);
   watch(files.fonts, fonts);
 
   watch(files.templates_scssPath, templates_scss);
   watch(files.critical_scssPath, critical_scss);
   watch(files.common_scssPath, common_scss);
+  watch(files.vendor_scssPath, common_scss);
 
   watch(files.templates_jsPath, templates_js);
   watch(files.critical_jsPath, critical_js);
   watch(files.common_jsPath, common_js);
-  // watch(files.vendor_jsPath, jsVendor);
+  watch(files.vendor_jsPath, common_js);
 };
 
 /**

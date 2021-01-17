@@ -1,1 +1,38 @@
-@import "bootstrap/dist/css/bootstrap.min";
+@import "../../node_modules/bootstrap/dist/css/bootstrap.min";
+@import './utils/_index';
+// RESET CSS
+*,::after,::before{box-sizing:border-box}ol[class],ul[class]{padding:0}blockquote,body,dd,dl,figcaption,figure,h1,h2,h3,h4,li,ol[class],p,ul[class]{margin:0}body{min-height:100vh;scroll-behavior:smooth;text-rendering:optimizeSpeed;line-height:1.5}ol[class],ul[class]{list-style:none}a:not([class]){text-decoration-skip-ink:auto}img{max-width:100%;display:block}article>*+*{margin-top:1em}button,input,select,textarea{font:inherit}@media (prefers-reduced-motion:reduce){*{animation-duration:0s!important;animation-iteration-count:1!important;transition-duration:0s!important;scroll-behavior:auto!important}}
+
+
+html {
+  scroll-behavior: smooth;
+  body {
+    font-family: var(--main-font);
+    color: var(--text-color);
+    scroll-behavior: smooth;
+    min-width: 320px;
+  }
+  ul {
+    padding-left: 0;
+    list-style: none;
+  }
+  a[href]{
+    text-decoration: none;
+    color: inherit;
+  }
+  input {
+    border: none;
+    outline: none;
+  }
+  button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: none;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+    margin: 0;
+    padding: 0;
+  }
+}
