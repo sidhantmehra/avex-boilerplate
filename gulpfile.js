@@ -1,8 +1,9 @@
 "use strict";
 const { src, dest, watch } = require("gulp");
+const changed = require("gulp-changed");
+const filter = require("gulp-filter");
 const babel = require("gulp-babel");
 const autoprefixer = require("gulp-autoprefixer");
-const changed = require("gulp-changed");
 const concat = require("gulp-concat");
 const rename = require("gulp-rename");
 const sass = require("gulp-sass");
@@ -39,6 +40,8 @@ const files = {
 
 function templates_scss() {
   return src(files.templates_scssPath)
+    .pipe(filter(function(a){ return a.stat && a.stat.size }))
+    // .pipe(changed(dest))
     .pipe(sass({
       outputStyle: "compressed"
     }).on("error", sass.logError))
@@ -76,6 +79,7 @@ function common_scss() {
 // JS task
 function templates_js() {
   return src(files.templates_jsPath)
+    .pipe(filter(function(a){ return a.stat && a.stat.size }))
     .pipe(
       babel({
         presets: ["@babel/preset-env"],
