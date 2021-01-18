@@ -1,123 +1,6 @@
-{% assign tr = request.locale.iso_code %}
+
 <header data-section-id="{{ section.id }}">
-	<div class="mobile-nav">
-		<button class="close" onclick="closeMenu(this)">
-			<span></span>
-			<span></span>
-		</button>
-		<div class="mobile-topbar">
-			{% if section.settings.language_selector %}
-			{% render 'translation-lab-language-dropdown' %}
-			<!-- <div class="lang-selector" onclick="setActive(this)">
-				<span>ENG</span>
-				<ul class="lang-dropdown">
-					<li>
-						<a href="">RU</a>
-					</li>
-				</ul>
-			</div> -->
-			{% endif %}
-			
-			{% if section.settings.signup_button %}
-			<div class="signup-button-container">
-				<a class="primary-button signupPopup" href="#videoPopup" data-toggle="modal" >{{ 'general.common.signup' | t }}</a>
-			</div>
-			{% endif %}
-		</div>
-		<ul class="navbar-nav mr-auto">
-			{% for link in linklists[section.settings.main_linklist].links %}
-				<li class="nav-item{% if link.active %} active{% endif %}">
-					<a class="nav-link" href="{{ link.url }}" {% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
-				</li>
-				{% endfor %}
-		</ul>
-		<div class="socials">
-			{% if section.settings.facebook != '' %}
-			<a href="#">{% render 'icon-facebook' %}</a>
-			{% endif %}
-			{% if section.settings.instagram != '' %}
-			<a href="#">{% render 'icon-instagram' %}</a>
-			{% endif %}
-			{% if section.settings.youtube != '' %}
-			<a href="#">{% render 'icon-youtube' %}</a>
-			{% endif %}
-			{% if section.settings.pinterest != '' %}
-			<a href="#">{% render 'icon-pinterest' %}</a>
-			{% endif %}
-		</div>
-	</div>
-	<div class="header">
-		<div class="navbar navbar-expand-lg">
-			
-			<div class="navbar-brand">
-				{% if section.settings.logo_path != '' %}
-				<a href="{{ shop.url }}">
-					<img src="{{ section.settings.logo_path }}" alt="{{ shop.name }}"/>
-				</a>
-				{% endif %}
-			</div>
-			<div class="navbar-hamburger" onclick="openMenu(this)" data-videourl="{{ section.settings.custom_videourl }}">
-				<div class="barbar">
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
-			</div>
-			<nav class="collapse navbar-collapse" id="navbarCollapse" role="navigation">
-				<ul class="navbar-nav mr-auto">
-					{% for link in linklists[section.settings.main_linklist].links %}
-					<li class="nav-item{% if link.active %} active{% endif %}">
-						<a class="nav-link" href="{{ link.url }}" {% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape}}</a>
-					</li>
-					{% endfor %}
-				</ul>
-				{% if section.settings.language_selector %}
-				{% render 'translation-lab-language-dropdown' %}
-				<!-- <div class="lang-selector" onclick="setActive(this)">
-					{% if tr == 'ru' %}
-						<span>RU</span>
-					{% else %}
-						<span>ENG</span>
-					{% endif %}
-				
-					<ul class="lang-dropdown">
-						<li>
-							{% if tr == 'ru' %}
-								<a href="{{ shop.url }}/">ENG</a>
-							{% else %}
-								<a href="{{ shop.url }}/ru">RU</a>
-							{% endif %}
-						</li>
-					</ul>
-				</div> -->
-				{% endif %}
-				
-				<div class="socials">
-					{% if section.settings.facebook != '' %}
-					<a href="{{ section.settings.facebook }}">{% render 'icon-facebook' %}</a>
-					{% endif %}
-					{% if section.settings.twitter != '' %}
-					<a href="{{ section.settings.twitter }}">{% render 'icon-twitter' %}</a>
-					{% endif %}
-					{% if section.settings.instagram != '' %}
-					<a href="{{ section.settings.instagram }}">{% render 'icon-instagram' %}</a>
-					{% endif %}
-					{% if section.settings.youtube != '' %}
-					<a href="{{ section.settings.youtube }}">{% render 'icon-youtube' %}</a>
-					{% endif %}
-					{% if section.settings.pinterest != '' %}
-					<a href="{{ section.settings.pinterest }}">{% render 'icon-pinterest' %}</a>
-					{% endif %}
-				</div>
-				
-				{% if section.settings.signup_button %}
-				<div class="signup-button-container">
-					<a class="primary-button signupPopup dynamicVideoShow" href="#videoPopup" data-toggle="modal" data-videourl="{{ section.settings.custom_videourl }}">{{ 'general.common.signup' | t }}</a>
-				</div>
-				{% endif %}
-			</nav>
-		</div>
-	</div>
+	Header
 </header>
 
 {% schema %}
@@ -127,103 +10,29 @@
   },
   "settings": [
     {
-      "type": "header",
-      "content": {
-        "en": "Main Settings",
-        "ru": "Main Settings"
-      }
-		},
-		{
-      "type": "text",
-      "id": "logo_path",
-      "label": {
-        "en": "SVG Logo Path",
-        "ru": "SVG Logo Path"
-      }
-    },
-		{
-      "type": "link_list",
-      "id": "main_linklist",
-      "label": {
-        "en": "Menu",
-        "ru": "Menu"
-      },
-      "default": "main-menu"
-		},
-		{
-      "type": "checkbox",
-      "id": "language_selector",
-      "label": {
-        "en": "Language Selector",
-        "ru": "Language Selector"
-      },
-      "default": true
-		},
-		{
-      "type": "checkbox",
-      "id": "signup_button",
-      "label": {
-        "en": "Sign Up Button",
-        "ru": "Sign Up Button"
-      },
-      "default": true
-		},
-		{
-      "type": "text",
-      "id": "custom_videourl",
-      "label": {
-        "en": "Custom Video Url",
-        "ru": "Custom Video Url"
-      }
-    },
-		{
-      "type": "header",
-      "content": {
-        "en": "Socials",
-        "ru": "Socials"
-      }
-		},
-		{
-      "type": "text",
-      "id": "facebook",
-      "label": {
-        "en": "Facebook",
-        "ru": "Facebook"
-      }
-		},
-		{
-      "type": "text",
-      "id": "twitter",
-      "label": {
-        "en": "Twitter",
-        "ru": "Twitter"
-      }
-		},
-		{
-      "type": "text",
-      "id": "instagram",
-      "label": {
-        "en": "Instagram",
-        "ru": "Instagram"
-      }
-		},
-		{
-      "type": "text",
-      "id": "youtube",
-      "label": {
-        "en": "Youtube",
-        "ru": "Youtube"
-      }
-		},
-		{
-      "type": "text",
-      "id": "pinterest",
-      "label": {
-        "en": "Pinterest",
-        "ru": "Pinterest"
-      }
+		"type": "header",
+		"content": {
+		"en": "Main Settings",
+		"ru": "Main Settings"
 		}
-		
+	},
+	{
+		"type": "text",
+		"id": "logo_path",
+		"label": {
+			"en": "SVG Logo Path",
+			"ru": "SVG Logo Path"
+		}
+    },
+	{
+		"type": "link_list",
+		"id": "main_linklist",
+		"label": {
+			"en": "Menu",
+			"ru": "Menu"
+		},
+		"default": "main-menu"
+	}
   ]
 }
 {% endschema %}
