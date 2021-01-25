@@ -49,12 +49,12 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', async function() {
-    loadjscssfile("{{ 'common.css.liquid' | asset_url }}", "css");
+    loadjscssfile("{{ 'common.min.css' | asset_url }}", "css");
     loadjscssfile("{{ 'common.min.js' | asset_url }}", "js");
 
     //Dynamic css/js load
     {% assign jsname = template.name | append: '.min.js' %}
-    {% assign scssname = template.name | append: '.scss.css' %}
+    {% assign scssname = template.name | append: '.min.css' %}
     loadjscssfile("{{ scssname | asset_url }}", "css");
     loadjscssfile("{{ jsname | asset_url }}", "js");
   }, false);
