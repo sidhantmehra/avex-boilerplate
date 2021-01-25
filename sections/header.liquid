@@ -1,6 +1,13 @@
 
 <header data-section-id="{{ section.id }}">
 	Header
+	
+	<!-- 
+		To show a number of items in the cart if item_count > 0
+	 -->
+	<span id="item_count" rv-show="cart.item_count | gt 0" data-cart-view>
+		(<span data-cart-render="item_count">1</span>)
+	</span>
 </header>
 
 {% schema %}

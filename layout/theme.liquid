@@ -47,18 +47,22 @@
   </main>
   {% section 'footer' %}
 
-<script>
-  document.addEventListener('DOMContentLoaded', async function() {
-    loadjscssfile("{{ 'common.min.css' | asset_url }}", "css");
-    loadjscssfile("{{ 'common.min.js' | asset_url }}", "js");
+   <!-- Cart JSON -->
+  <script type="application/json" id="cart-json">{{ cart | json }}</script>
+  
+  <!-- Lazyloading assets -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      loadjscssfile("{{ 'common.min.css' | asset_url }}", "css");
+      loadjscssfile("{{ 'common.min.js' | asset_url }}", "js");
 
-    //Dynamic css/js load
-    {% assign jsname = template.name | append: '.min.js' %}
-    {% assign scssname = template.name | append: '.min.css' %}
-    loadjscssfile("{{ scssname | asset_url }}", "css");
-    loadjscssfile("{{ jsname | asset_url }}", "js");
-  }, false);
-</script>
-
+      //Dynamic css/js load
+      {% assign jsname = template.name | append: '.min.js' %}
+      {% assign scssname = template.name | append: '.min.css' %}
+      loadjscssfile("{{ scssname | asset_url }}", "css");
+      loadjscssfile("{{ jsname | asset_url }}", "js");
+    }, false);
+  </script>
+  
 </body>
 </html>
