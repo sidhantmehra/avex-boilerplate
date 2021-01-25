@@ -1,13 +1,17 @@
 
 <header data-section-id="{{ section.id }}">
 	Header
-	
-	<!-- 
+	{%- comment -%}
 		To show a number of items in the cart if item_count > 0
-	 -->
+	{%- endcomment -%}
 	<span id="item_count" rv-show="cart.item_count | gt 0" data-cart-view>
 		(<span data-cart-render="item_count">1</span>)
 	</span>
+	
+	{%- comment -%}
+		Include mini cart if needed
+		{% include 'mini-cart' %}
+	{%- endcomment -%}
 </header>
 
 {% schema %}
