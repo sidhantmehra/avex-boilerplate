@@ -46,7 +46,7 @@ function templates_scss() {
       outputStyle: "compressed"
     }).on("error", sass.logError))
     .pipe(autoprefixer({ cascade: false }))
-    .pipe(rename({ suffix: ".css", extname: ".liquid" }))
+    .pipe(rename({ suffix: ".min", extname: ".css" }))
     .pipe(dest(files.assetsDir));
 }
 
