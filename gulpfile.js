@@ -83,6 +83,7 @@ function templates_js() {
     .pipe(
       babel({
         presets: ["@babel/preset-env"],
+        
       })
     )
     .pipe(rename({ suffix: ".min", extname: ".js" }))
@@ -110,6 +111,7 @@ function common_js() {
     .pipe(
       babel({
         presets: ["@babel/preset-env"],
+        ignore: [files.vendor_jsPath]
       })
     )
     .pipe(concat("common.js"))
