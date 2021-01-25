@@ -72,7 +72,7 @@ function common_scss() {
       outputStyle: 'compressed'
     }).on("error", sass.logError))
     .pipe(autoprefixer({ cascade: false }))
-    .pipe(concat("common.css.liquid"))
+    .pipe(concat("common.min.css"))
     .pipe(dest(files.assetsDir));
 }
 
