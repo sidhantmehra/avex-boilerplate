@@ -3,9 +3,9 @@
   The contents of the product.liquid template can be found in /sections/product-template.liquid
 {% endcomment %}
 
-{% section 'product-template' %}
-{% section 'product-recommendations' %}
+{% section 'product' %}
 
-{% if collection %}
-<a href="{{ collection.url }}" class="return-link">Back</a>
-{% endif %}
+<!-- Structured Data -->
+{% render 'product-structured-data' %}
+<!-- Product JSON -->
+<script type="application/json" id="product-json">{{ product | json }}</script>
