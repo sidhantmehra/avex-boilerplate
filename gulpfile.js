@@ -46,7 +46,7 @@ function templates_scss() {
       outputStyle: "compressed"
     }).on("error", sass.logError))
     .pipe(autoprefixer({ cascade: false }))
-    .pipe(rename({ suffix: ".css", extname: ".liquid" }))
+    .pipe(rename({ suffix: ".min", extname: ".css" }))
     .pipe(dest(files.assetsDir));
 }
 
@@ -72,7 +72,7 @@ function common_scss() {
       outputStyle: 'compressed'
     }).on("error", sass.logError))
     .pipe(autoprefixer({ cascade: false }))
-    .pipe(concat("common.css.liquid"))
+    .pipe(concat("common.min.css"))
     .pipe(dest(files.assetsDir));
 }
 
@@ -83,6 +83,7 @@ function templates_js() {
     .pipe(
       babel({
         presets: ["@babel/preset-env"],
+        
       })
     )
     .pipe(rename({ suffix: ".min", extname: ".js" }))
@@ -110,6 +111,7 @@ function common_js() {
     .pipe(
       babel({
         presets: ["@babel/preset-env"],
+        ignore: [files.vendor_jsPath]
       })
     )
     .pipe(concat("common.js"))
