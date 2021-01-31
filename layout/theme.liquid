@@ -54,7 +54,7 @@
 
     //Dynamic css/js load
     {% assign jsname = template.name | append: '.min.js' %}
-    {% assign scssname = template.name | append: '.scss.css' %}
+    {% assign scssname = template.name | append: '.css' %}
     loadjscssfile("{{ scssname | asset_url }}", "css");
     loadjscssfile("{{ jsname | asset_url }}", "js");
   }, false);
