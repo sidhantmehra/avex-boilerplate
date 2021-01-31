@@ -32,9 +32,21 @@
 
 6. Fully customizable and extendable
 
+7. Responsive Image and Responsive BG `/snippets/responsive-bg-image.liquid`, `/snippets/responsive-image.liquid`, : 
+    BG: `<div class="lazyload" data-bgset="{% include 'responsive-bg-image', image: article.image %}"></div>`
+    IMG: `{% include 'responsive-image' with image: featured_image, image_class: "css-class", wrapper_class: "wrapper-css-class", max_width: 700, max_height: 800 %}`
+
 
 ## Todos
 
 1. Have the possibility to control the loading order of lazyloaded scripts(for example: having a dependency list), because the browser may load the first script that is declared to be lazyloaded later than the second as the latter may be lighter. This may lead to errors if the second script depends on the first.
 
 2. Find out how we can implicitly import scss resource files to all scss files. By this we could avoid importing `scss/utils/index` in all scss files where we need mixins. 
+
+
+
+## DEV STORE
+
+https://nicole-avex-test-store.myshopify.com/admin/themes?channel=true
+
+Theme Name: __Avextheme__
