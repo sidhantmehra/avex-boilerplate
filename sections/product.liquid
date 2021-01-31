@@ -1,0 +1,113 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign swatchesEnabled = true -%}
+
+<div class="product">
+  <div class="product__gallery product-gallery">
+    {%- for image in product.images -%}
+      <div class="product-gallery__item">
+        <img 
+          class="lazyload"
+          src="{{ image.src | img_url: '12x12' }}"
+          data-src="{{ image.src | img_url: 'x1024'}}"
+          data-sizes="auto" 
+          alt="{{product.title}}"
+        >
+      </div>
+    {%- endfor -%}
+  </div>
+  
+  <div class="product__details">
+    <h1>{{ product.title }}</h1>
+    <p>{{ product.vendor }}</p>
+    <p>{{ product.description }}</p>
+    <h5>{{ product.price | money}}</h5>  
+    {% form "product", product, id:'productForm', class:'product__form product-form' %}
+      
+    {% for product_option in product.options_with_values %}
+      {%- assign optionIndex = 'option' | append: forloop.index -%}
+      
+      {% if product_option.name == 'Color' and swatchesEnabled %}
+      
+        {%- comment -%}
+        
+        Swatches:
+        ---
+        Swatches can be disabled/enabled through the parameter above. New swatches should be added to the files section of the Admin panel. Following a handleized version of the option value
+        
+        {%- endcomment -%}
+        <fieldset 
+          class="option-select option-select--swatches" name="{{optionIndex}}">
+          {% for value in product_option.values %}
+            <div class="product-form__field">
+              <input 
+                class="product-option-select"
+                type="radio" 
+                name="{{optionIndex}}" 
+                value="{{value}}"
+                id="{{optionIndex}}-{{value}}"
+                {% if current_variant[optionIndex] == value %}
+                checked="checked"
+                {% endif %}
+              >
+              <label for="option{{index}}-{{value}}" >
+                <img src="{{ value | handleize | append: '.jpg' | file_url }}" alt="{{value}}">
+              </label>
+            </div>
+          {% endfor %}
+        </fieldset>
+      {%- else -%}
+        {%- comment -%}
+        
+        Ordinary option select
+        
+        {%- endcomment -%}
+        <fieldset 
+          class="option-select option-select--swatches" name="{{optionIndex}}">
+          {% for value in product_option.values %}
+            <div class="product-form__field">
+              <input 
+                class="product-option-select"
+                type="radio" 
+                name="{{optionIndex}}" 
+                value="{{value}}"
+                id="{{optionIndex}}-{{value}}"
+                {% if current_variant[optionIndex] == value %}
+                checked="checked"
+                {% endif %}
+              >
+              <label for="option{{index}}-{{value}}" >
+                {{value}}
+              </label>
+            </div>
+          {% endfor %}
+        </fieldset>
+      {% endif %}
+    {% endfor %}
+      
+    
+      {%- comment -%}
+        DO NOT REMOVE
+      {%- endcomment -%}
+      <div class="hidden">
+        <select name="id" id="variant-select">
+          {% for variant in product.variants %}
+            <option 
+              {% if variant == current_variant %} selected="selected" {% endif %}
+              value="{{ variant.id }}"
+            >
+                {{ variant.title  }} - {{ variant.price | money }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    
+      
+      <div class="product-form__quantity">
+        <input type="text" value="1" name="quantity"/>
+      </div>
+      <div class="product-form__atc">
+        <button type="submit">Add to cart</button>
+      </div>
+    {% endform %}
+  </div>
+</div>

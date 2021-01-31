@@ -44,7 +44,7 @@ function templates_scss() {
     // .pipe(changed(dest))
     .pipe(sass({outputStyle: "compressed"}).on("error", sass.logError))
     .pipe(autoprefixer({ cascade: false }))
-    .pipe(rename({ suffix: ".css", extname: ".liquid" }))
+    .pipe(rename({ suffix: ".min", extname: ".css" }))
     .pipe(dest(files.assetsDir));
 }
 
@@ -70,7 +70,7 @@ function common_scss() {
       outputStyle: 'compressed'
     }).on("error", sass.logError))
     .pipe(autoprefixer({ cascade: false }))
-    .pipe(concat("common.css.liquid"))
+    .pipe(concat("common.min.css"))
     .pipe(dest(files.assetsDir));
 }
 

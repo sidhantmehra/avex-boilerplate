@@ -38,6 +38,7 @@
   
   <!-- Critical JS -->
   <script>{% render 'critical-js' %}</script>
+  
 </head>
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }} template-{{ template.suffix }}">
   {% section 'header' %} 
@@ -54,12 +55,19 @@
     document.addEventListener('DOMContentLoaded', async function() {
       loadjscssfile("{{ 'common.css' | asset_url }}", "css");
       loadjscssfile("{{ 'common.min.js' | asset_url }}", "js");
+      
+      {% if template.name == 'product' %}
+        loadjscssfile("{{ 'option_selection.js' | shopify_asset_url }}", "js")
+      {% endif %}  
+      
 
-      //Dynamic css/js load
+      //Dynamic css/js load of assets after the previous ones are loaded
       {% assign jsname = template.name | append: '.min.js' %}
-      {% assign scssname = template.name | append: '.css' %}
-      loadjscssfile("{{ scssname | asset_url }}", "css");
-      loadjscssfile("{{ jsname | asset_url }}", "js");
+      {% assign scssname = template.name | append: '.min.css' %}
+      setTimeout(() => {
+        loadjscssfile("{{ scssname | asset_url }}", "css")
+        loadjscssfile("{{ jsname | asset_url }}", "js")
+      }, 0);
     }, false);
   </script>
   
