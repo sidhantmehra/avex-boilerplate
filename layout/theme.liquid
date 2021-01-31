@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
   <!-- Favicon -->
   {% if settings.favicon %}
     <link rel="shortcut icon" href="{{ 'favicon.png' | assets_url }}" type="image/png" />
@@ -53,12 +52,12 @@
   <!-- Lazyloading assets -->
   <script>
     document.addEventListener('DOMContentLoaded', async function() {
-      loadjscssfile("{{ 'common.min.css' | asset_url }}", "css");
+      loadjscssfile("{{ 'common.css' | asset_url }}", "css");
       loadjscssfile("{{ 'common.min.js' | asset_url }}", "js");
 
       //Dynamic css/js load
       {% assign jsname = template.name | append: '.min.js' %}
-      {% assign scssname = template.name | append: '.min.css' %}
+      {% assign scssname = template.name | append: '.css' %}
       loadjscssfile("{{ scssname | asset_url }}", "css");
       loadjscssfile("{{ jsname | asset_url }}", "js");
     }, false);

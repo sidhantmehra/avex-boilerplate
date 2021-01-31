@@ -60,7 +60,7 @@
           <div class="col-12 col-md-6 filters-toolbar__item-child">
             <label class="filters-toolbar__label select-label" for="FilterTags">{{ 'collections.filters.title_tags' | t }}</label>
             <div class="filters-toolbar__input-wrapper select-group">
-              <select class="filters-toolbar__input hidden" name="FilterTags" id="FilterTags" aria-describedby="a11y-refresh-page-message a11y-selection-message">
+              <select class="filters-toolbar__input " name="FilterTags" id="FilterTags" aria-describedby="a11y-refresh-page-message a11y-selection-message">
                 <option value="{{ collection.url }}">{{ 'collections.filters.all_tags' | t }}</option>
                 {% for tag in collection.all_tags %}
                   {%- assign new_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first -%}
@@ -79,7 +79,7 @@
           <label class="filters-toolbar__label select-label" for="SortBy">{{ 'collections.sorting.title' | t }}</label>
           <div class="filters-toolbar__input-wrapper select-group">
             <select name="sort_by" id="SortBy"
-              class="filters-toolbar__input hidden"
+              class="filters-toolbar__input "
               aria-describedby="a11y-refresh-page-message a11y-selection-message"
               data-default-sortby="{{ collection.default_sort_by }}"
             >

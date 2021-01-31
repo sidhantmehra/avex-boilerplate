@@ -42,11 +42,9 @@ function templates_scss() {
   return src(files.templates_scssPath)
     .pipe(filter(function(a){ return a.stat && a.stat.size }))
     // .pipe(changed(dest))
-    .pipe(sass({
-      outputStyle: "compressed"
-    }).on("error", sass.logError))
+    .pipe(sass({outputStyle: "compressed"}).on("error", sass.logError))
     .pipe(autoprefixer({ cascade: false }))
-    .pipe(rename({ suffix: ".min", extname: ".css" }))
+    .pipe(rename({ suffix: ".css", extname: ".liquid" }))
     .pipe(dest(files.assetsDir));
 }
 
@@ -72,7 +70,7 @@ function common_scss() {
       outputStyle: 'compressed'
     }).on("error", sass.logError))
     .pipe(autoprefixer({ cascade: false }))
-    .pipe(concat("common.min.css"))
+    .pipe(concat("common.css.liquid"))
     .pipe(dest(files.assetsDir));
 }
 
@@ -96,11 +94,11 @@ function critical_js() {
   return src(files.critical_jsPath)
     .pipe(
       babel({
-        presets: ["@babel/preset-env"],
+        plugins: ["@babel/transform-runtime"],
       })
     )
     .pipe(concat("critical.js"))
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(rename("critical-js.liquid"))
     .pipe(dest(files.snippetsDir));
 }
