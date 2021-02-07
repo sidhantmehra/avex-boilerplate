@@ -1,18 +1,63 @@
 
 <header data-section-id="{{ section.id }}">
-	Header
-	{%- comment -%}
-		To show a number of items in the cart if item_count > 0
-	{%- endcomment -%}
-	<span id="item_count" rv-show="cart.item_count | gt 0" data-cart-view>
-		(<span data-cart-render="item_count">1</span>)
-	</span>
-	
-	{%- comment -%}
-		Include mini cart if needed
-		{% include 'mini-cart' %}
-	{%- endcomment -%}
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-2">
+				<a href="{{ routes.root_url }}" >
+					{% if section.settings.logo_path != '' %}
+					<img src="{{ section.settings.logo_path }}" width="100" height="100"/>
+					{% else %}
+					Site Logo
+					{% endif%}
+				</a>
+			</div>
+			<div class="col-12 col-md-8">
+				<nav class="" id="" role="navigation">
+					{% include 'site-nav', linklist: section.settings.main_linklist, wrapper_class: 'customClass' %}
+				</nav>
+			</div>
+			<div class="col-12 col-md-2">
+				{%- comment -%}
+					To show a number of items in the cart if item_count > 0
+				{%- endcomment -%}
+				<span id="item_count" rv-show="cart.item_count | gt 0" data-cart-view>
+					(<span data-cart-render="item_count">1</span>)
+				</span>
+				
+				{%- comment -%}
+					Include mini cart if needed
+					{% include 'mini-cart' %}
+				{%- endcomment -%}
+				{% if customer %}
+					<a href="{{ routes.account_url }}" class="site-header__icon site-header__account">
+						{{ 'layout.customer.account' | t }}
+					</a>
+				{% else %}
+					<a href="{{ routes.account_login_url }}" class="site-header__icon site-header__account">
+						{{ 'layout.customer.log_in' | t }}
+					</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 </header>
+
+{% if request.page_type == 'index' %}
+  {% assign potential_action_target = shop.url | append: routes.search_url | append: "?q={search_term_string}" %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ potential_action_target | json }},
+        "query-input": "required name=search_term_string"
+      },
+      "url": {{ shop.url | append: page.url | json }}
+    }
+  </script>
+{% endif %}
 
 {% schema %}
 {
