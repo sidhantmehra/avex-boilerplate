@@ -53,7 +53,7 @@
   <!-- Lazyloading assets -->
   <script>
     document.addEventListener('DOMContentLoaded', async function() {
-      loadjscssfile("{{ 'common.css' | asset_url }}", "css");
+      loadjscssfile("{{ 'common.min.css' | asset_url }}", "css");
       loadjscssfile("{{ 'common.min.js' | asset_url }}", "js");
       
       {% if template.name == 'product' %}

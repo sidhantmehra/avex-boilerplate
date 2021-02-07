@@ -1,1 +1,29 @@
 @import "../fonts/fonts";
+
+header{
+    .site-nav{
+        display: flex;
+        li{
+            margin: 0 10px;
+            &.site-nav--has-dropdown{
+                position: relative;
+            }
+            &.active{
+                .site-nav__dropdown{
+                    display: block;
+                }
+            }
+        }
+        &__dropdown{
+            display: none;
+            position: absolute;
+            padding: 11px 30px 11px 0;
+            margin: 0;
+            z-index: 7;
+            text-align: left;
+            left: 0;
+            top: 24px;
+        }
+        
+    }
+}

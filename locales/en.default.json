@@ -277,7 +277,8 @@
       "forgot_password": "Forgot your password?",
       "sign_in": "Sign In",
       "guest_title": "Continue as a guest",
-      "guest_continue": "Continue"
+      "guest_continue": "Continue",
+      "cancel": "Cancel"
     },
     "orders": {
       "title": "Order History",
