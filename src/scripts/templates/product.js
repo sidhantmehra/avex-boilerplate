@@ -55,10 +55,14 @@ productForm.addEventListener('submit', function(e){
 Array.from(document.querySelectorAll(selectors.productOptionSelect)).map((el)=>{
 	el.addEventListener('change', function(e) {
 		const formData = serializeForm(productForm)
-		const optionSelection = Object.keys(formData).map(v => /^option/.test(v) && formData[v]).filter(el=>el)
 		const optionIndex = e.target.getAttribute('name')
-		
-		const curVariant = productJSON.variants.find(variant=>JSON.stringify(variant.options)===JSON.stringify(optionSelection))
+		const curVariant = productJSON.variants.find(function(el){
+			return (
+				el.option1 == formData.option1 &&
+				el.option2 == formData.option2 &&
+				el.option3 == formData.option3
+			)
+		})
 		
 		const variantSelect = document.querySelector(`.single-option-selector[data-option=${optionIndex}]`)
 		variantSelect.value = curVariant[optionIndex]
