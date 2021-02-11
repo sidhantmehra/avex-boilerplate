@@ -32,9 +32,11 @@
 
 6. Fully customizable and extendable
 
-7. Responsive Image and Responsive BG `/snippets/responsive-bg-image.liquid`, `/snippets/responsive-image.liquid`, : 
-    BG: `<div class="lazyload" data-bgset="{% include 'responsive-bg-image', image: article.image %}"></div>`
-    IMG: `{% include 'responsive-image' with image: featured_image, image_class: "css-class", wrapper_class: "wrapper-css-class", max_width: 700, max_height: 800 %}`
+7. Responsive Image and Responsive BG `/snippets/responsive-bg-image.liquid`, `/snippets/responsive-image.liquid`:
+
+    BG: ```<div class="lazyload" data-bgset="{% include 'responsive-bg-image', image: article.image %}"></div>```
+    
+    IMG: ```{% include 'responsive-image' with image: featured_image, image_class: "css-class", wrapper_class: "wrapper-css-cwlass", max_width: 700, max_height: 800 %}```
 
 
 ## Todos
