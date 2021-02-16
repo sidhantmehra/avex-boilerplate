@@ -1,3 +1,5 @@
+{% include 'breadcrumbs' %}
+
 {% paginate collection.products by section.settings.limit %}
 
 <section class="collection-page" data-section-id="{{ section.id }}" data-section-type="collection-template">
@@ -133,6 +135,12 @@
 {
   "name": "Collection pages",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "breadcrumbs_hide",
+      "label": "Breadcrumbs Display",
+      "default": true
+    },
     {
         "type": "number",
         "id": "limit",

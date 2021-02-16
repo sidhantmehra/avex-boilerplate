@@ -1,3 +1,6 @@
+{% include 'breadcrumbs' %}
+
+
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 {%- assign swatchesEnabled = true -%}
 
@@ -111,3 +114,17 @@
     {% endform %}
   </div>
 </div>
+
+{% schema %}
+{
+  "name": "Product Page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "breadcrumbs_hide",
+      "label": "Breadcrumbs Display",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
