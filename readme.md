@@ -49,6 +49,6 @@
 
 ## DEV STORE
 
-https://nicole-avex-test-store.myshopify.com/admin/themes?channel=true
+https://avexplustest.myshopify.com/admin/themes?channel=true
 
-Theme Name: __Avextheme__
+Theme Name: Boilerplate - Main
