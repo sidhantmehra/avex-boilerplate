@@ -5,7 +5,7 @@ console.log('Common.js loaded');
  * https://cartjs.org/
  */
 const cartJSON = JSON.parse(document.getElementById('cart-json').innerHTML);
-console.log(cartJSON);
+// console.log(cartJSON);
 CartJS.init(cartJSON, {
   requestBodyClass: "cart-loading"
 })

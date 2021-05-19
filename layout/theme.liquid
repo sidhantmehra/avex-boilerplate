@@ -53,23 +53,19 @@
   <!-- Lazyloading assets -->
   <script>
     document.addEventListener('DOMContentLoaded', async function() {
-      loadjscssfile("{{ 'common.min.css' | asset_url }}", "css");
-      loadjscssfile("{{ 'common.min.js' | asset_url }}", "js");
-      
-      {% if template.name == 'product' %}
-        loadjscssfile("{{ 'option_selection.js' | shopify_asset_url }}", "js")
-      {% endif %}  
-      
-
-      //Dynamic css/js load of assets after the previous ones are loaded
-      {% assign jsname = template.name | append: '.min.js' %}
+        // Dynamic CSS/JS files load
       {% assign scssname = template.name | append: '.min.css' %}
-      setTimeout(() => {
-        loadjscssfile("{{ scssname | asset_url }}", "css")
-        loadjscssfile("{{ jsname | asset_url }}", "js")
-      }, 0);
+      loadFile("{{ 'common.min.css' | asset_url }}", "css");
+      loadFile("{{ scssname | asset_url }}", "css")
+
+      {% assign jsname = template.name | append: '.min.js' %}
+      loadFile([
+        "{{ 'common.min.js' | asset_url }}", 
+        {% if template.name == 'product' %}"{{ 'option_selection.js' | shopify_asset_url }}",{% endif %}
+        "{{ jsname | asset_url }}",
+        ],"js")  
     }, false);
   </script>
   
-</body>
+</body> 
 </html>
