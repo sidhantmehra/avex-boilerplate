@@ -1,61 +1,74 @@
 async function checkifExist(url) {
-  return await fetch(url)
-    .then((response) => {
-      if (response.ok) {
-        return true;
+  return (await fetch(url, { method: "HEAD" })).ok;
+}
+function createScript(src) {
+  let fileref = document.createElement("script");
+  fileref.setAttribute("type", "text/javascript");
+  fileref.setAttribute("src", src);
+  return fileref;
+}
+
+function createLink(src) {
+  let fileref = document.createElement("link");
+  fileref.setAttribute("rel", "stylesheet");
+  fileref.setAttribute("type", "text/css");
+  fileref.setAttribute("href", src);
+  return fileref;
+}
+
+async function loadFile(src, type) {
+  const headTag = document.head;
+  if (Array.isArray(src) && src.length > 0) {
+    let nextSrc = src.shift();
+    const exist = await checkifExist(nextSrc);
+    if (type === "js") {
+      if (exist) {
+        const fileref = createScript(nextSrc);
+        headTag.appendChild(fileref);
+        fileref.onload = function (e) {
+          loadFile(src, type);
+        };
       } else {
-        throw new Error("Not found");
+        loadFile(src, type);
       }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
-
-async function loadjscssfile(filename, filetype) {
-  if (filetype == "js") {
-    //if filename is a external JavaScript file
-    var exist = await checkifExist(filename);
-    if (exist) {
-      var fileref = document.createElement("script");
-      fileref.setAttribute("type", "text/javascript");
-      fileref.setAttribute("src", filename);
+    } else if (type === "css") {
+      if (exist) {
+        headTag.appendChild(createLink(nextSrc));
+      }
+      loadFile(src, type);
     }
-  } else if (filetype == "css") {
-    //if filename is an external CSS file
-    var exist = await checkifExist(filename);
-    if (exist) {
-      var fileref = document.createElement("link");
-      fileref.setAttribute("rel", "stylesheet");
-      fileref.setAttribute("type", "text/css");
-      fileref.setAttribute("href", filename);
+  } else {
+    const exist = await checkifExist(src);
+    if (type === "js" && exist) {
+      headTag.appendChild(createScript(src));
+    } else if (type === "css" && exist) {
+      headTag.appendChild(createLink(src));
     }
   }
-  if (typeof fileref != "undefined")
-    document.getElementsByTagName("head")[0].appendChild(fileref);
 }
 
-function setCookie(name, value, days) {
-  var expires = "";
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
+// Helpers to Work with cookies
+// function setCookie(name, value, days) {
+//   var expires = "";
+//   if (days) {
+//     var date = new Date();
+//     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+//     expires = "; expires=" + date.toUTCString();
+//   }
+//   document.cookie = name + "=" + (value || "") + expires + "; path=/";
+// }
 
-function getCookie(name) {
-  var nameEQ = name + "=";
-  var ca = document.cookie.split(";");
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == " ") c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
-}
+// function getCookie(name) {
+//   var nameEQ = name + "=";
+//   var ca = document.cookie.split(";");
+//   for (var i = 0; i < ca.length; i++) {
+//     var c = ca[i];
+//     while (c.charAt(0) == " ") c = c.substring(1, c.length);
+//     if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+//   }
+//   return null;
+// }
 
-function eraseCookie(name) {
-  document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-}
+// function eraseCookie(name) {
+//   document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+// }
