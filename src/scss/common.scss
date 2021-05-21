@@ -28,3 +28,9 @@ header{
         
     }
 }
+
+@include media(tablet){
+    h1{
+        color: red
+    }
+}
