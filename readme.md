@@ -5,6 +5,7 @@
 1. Clone the repo - `git clone https://github.com/avex-designs/avex-theme`
 
 2. Install dependencies - `$ npm install`
+   You may see some wired infinite loop npm installation, this happens due to Cartjs dependency. Please just stop the process and try `npm install` again.
 
 3. Make sure [Themekit](https://shopify.github.io/themekit) is installed - `theme help`
 

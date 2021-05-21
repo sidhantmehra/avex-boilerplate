@@ -1,8 +1,8 @@
 {
   "name": "shopifytheme",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
-  "main": "gulpfile.js",
+  "main": "webpack.config.js",
   "scripts": {
     "webpack": "webpack",
     "theme-watch": "theme watch --allow-live",
