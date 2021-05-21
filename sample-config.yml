@@ -1,13 +1,13 @@
 development:
- password: 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
- theme_id: 84033306727
- store: avexplustest.myshopify.com
+ password: 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
+ theme_id: 117914206370
+ store: nicole-avex-test-store.myshopify.com
  ignore_files:
     - config/settings_data.json 
 
 production:
-  password: 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
-  theme_id: 
-  store: avexplustest.myshopify.com
+  password: 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
+  theme_id: 113495048353
+  store: nicole-avex-test-store.myshopify.com
   ignore_files:
     - config/settings_data.json 

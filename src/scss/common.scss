@@ -1,6 +1,7 @@
-@import "../fonts/fonts";
+@import "./fonts";
 
 header{
+    background-image: url('./images/bg.jpg') 50% 50% no-repeat;
     .site-nav{
         display: flex;
         li{

@@ -1,0 +1,29 @@
+@import "~sass-rem/rem";
+
+@mixin media($breakpoint) {
+    @if $breakpoint==mobile {
+      @media only screen and (min-width: 576px) {
+        @content;
+      }
+    }
+    @if $breakpoint==tablet {
+      @media only screen and (min-width: 768px) {
+        @content;
+      }
+    }
+    @if $breakpoint==desktop {
+      @media only screen and (min-width: 992px) {
+        @content;
+      }
+    }
+    @if $breakpoint==xdesktop {
+      @media only screen and (min-width: 1200px) {
+        @content;
+      }
+    }
+    @if $breakpoint==xxdesktop {
+      @media only screen and (min-width: 1400px) {
+        @content;
+      }
+    }
+  }

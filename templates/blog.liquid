@@ -1,6 +1,52 @@
-{% comment %}
-  The contents of the blog.liquid template can be found in /sections/blog-template.liquid
-{% endcomment %}
+<!-- /templates/blog.liquid -->
+{% paginate blog.articles by 5 %}
 
-{% section 'blog-template' %}
+<h1>
+  {% if current_tags %}
+    {{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}
+  {% else %}
+    {{ blog.title }}
+  {% endif %}
+  <a href="{{ shop.url }}{{ blog.url }}.atom">RSS</a>
+</h1>
+    {% for article in blog.articles %}
 
+      {% assign article_content = article.excerpt_or_content %}
+
+      <article>
+
+        {% unless article.image == blank %}
+            <a href="{{ article.url }}">
+              {% assign img_url = article.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                <img class="article__featured-image lazyload"
+                  src="{{ article.image | img_url: '300x300' }}"
+                  data-src="{{ img_url }}"
+                  data-widths="[360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ article.image.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ article.title | escape }}">
+            </a>
+        {% endunless %}
+
+        <time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}">{{ article.published_at | date: format: 'date' }}</time>
+        <a class="article__heading-link" href="{{ article.url }}">{{ article.title }}</a>
+        <p>{{ article_content | strip_html | truncatewords: 120 }}</p>
+        <a href="{{ article.url }}" class="text-link">Read more</a>
+
+        {% if article.tags.size > 0 %}
+          {% comment %} <ul>
+            {% include 'tags-article' %}
+          </ul> {% endcomment %}
+        {% endif %}
+
+      </article>
+    {% endfor %}
+
+    {% if paginate.pages > 1 %}
+      {% comment %} {% include 'pagination' %} {% endcomment %}
+    {% endif %}
+
+  </div>
+</div>
+
+{% endpaginate %}

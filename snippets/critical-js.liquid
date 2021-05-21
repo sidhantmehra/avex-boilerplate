@@ -1,9 +1,7 @@
+var __webpack_exports__ = {};
 async function checkifExist(url) {
-  return (await fetch(url, {
-    method: "HEAD"
-  })).ok;
+  return (await fetch(url, { method: "HEAD" })).ok;
 }
-
 function createScript(src) {
   let fileref = document.createElement("script");
   fileref.setAttribute("type", "text/javascript");
@@ -21,16 +19,13 @@ function createLink(src) {
 
 async function loadFile(src, type) {
   const headTag = document.head;
-
   if (Array.isArray(src) && src.length > 0) {
     let nextSrc = src.shift();
     const exist = await checkifExist(nextSrc);
-
     if (type === "js") {
       if (exist) {
         const fileref = createScript(nextSrc);
         headTag.appendChild(fileref);
-
         fileref.onload = function (e) {
           loadFile(src, type);
         };
@@ -41,19 +36,19 @@ async function loadFile(src, type) {
       if (exist) {
         headTag.appendChild(createLink(nextSrc));
       }
-
       loadFile(src, type);
     }
   } else {
     const exist = await checkifExist(src);
-
     if (type === "js" && exist) {
       headTag.appendChild(createScript(src));
     } else if (type === "css" && exist) {
       headTag.appendChild(createLink(src));
     }
   }
-} // Helpers to Work with cookies
+}
+
+// Helpers to Work with cookies
 // function setCookie(name, value, days) {
 //   var expires = "";
 //   if (days) {
@@ -63,6 +58,7 @@ async function loadFile(src, type) {
 //   }
 //   document.cookie = name + "=" + (value || "") + expires + "; path=/";
 // }
+
 // function getCookie(name) {
 //   var nameEQ = name + "=";
 //   var ca = document.cookie.split(";");
@@ -73,6 +69,8 @@ async function loadFile(src, type) {
 //   }
 //   return null;
 // }
+
 // function eraseCookie(name) {
 //   document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 // }
+
