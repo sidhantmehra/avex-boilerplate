@@ -1,4 +1,5 @@
 import "lazysizes"
+import "lazysizes/plugins/rias/ls.rias";
 import Swiper from 'swiper';
 import CartJS from 'shopify-cartjs'
 

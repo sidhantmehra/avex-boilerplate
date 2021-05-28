@@ -97,7 +97,7 @@ const commonFilesConfig = Object.assign({}, config, {
     ],
   },
   plugins: [
-    new RemoveEmptyScriptsPlugin({ verbose: true }),
+    new RemoveEmptyScriptsPlugin(),
     new MiniCssExtractPlugin({
       filename: "[name].min.css",
     }),
@@ -127,7 +127,7 @@ const criticalCssConfig = Object.assign({}, config, {
     ],
   },
   plugins: [
-    new RemoveEmptyScriptsPlugin({ verbose: true }),
+    new RemoveEmptyScriptsPlugin(),
     new MiniCssExtractPlugin({
       filename: "[name].liquid",
     }),
