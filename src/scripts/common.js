@@ -18,3 +18,11 @@ CartJS.init(cartJSON, {
 window.CartJS = CartJS;
 window.Swiper = Swiper;
 
+/**
+ * SWIPER SAMPLE
+ */
+
+//  const swiper = new Swiper(".swiper-container", {
+//   speed: 400,
+//   spaceBetween: 100,
+// });
