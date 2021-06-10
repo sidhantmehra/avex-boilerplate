@@ -58,7 +58,7 @@
       loadFile("{{ 'common.min.css' | asset_url }}", "css");
       loadFile("{{ scssname | asset_url }}", "css")
 
-      {% assign jsname = template.name | append: '.min.js' %}
+      {% assign jsname = template.name | append: '-js.min.js' %}
       loadFile([
         "{{ 'common.min.js' | asset_url }}", 
         {% if template.name == 'product' %}"{{ 'option_selection.js' | shopify_asset_url }}",{% endif %}
