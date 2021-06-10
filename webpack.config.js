@@ -5,13 +5,11 @@ const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
 const WebpackHookPlugin = require("webpack-hook-plugin");
 
 const files = {
-  vendor_scssPath: "./src/scss/vendor/*.*",
   templates_scssPath: "./src/scss/templates/*.scss",
   critical_scssPath: "./src/scss/critical.scss",
   common_scssPath: "./src/scss/common.scss",
   layout_scssPath: "./src/scss/layouts/*.scss",
 
-  vendor_jsPath: "./src/scripts/vendor/*.js",
   templates_jsPath: "./src/scripts/templates/*.js",
   critical_jsPath: "./src/scripts/critical.js",
   common_jsPath: "./src/scripts/common.js",
@@ -29,12 +27,12 @@ function mergePaths(arr) {
   return result;
 }
 
-function templatesEntry(arr) {
+function templatesEntry(arr, isJS = false) {
   let entries = {};
   for (let i = 0; i < arr.length; i++) {
     for (let file of glob.sync(arr[i])) {
       const rgx = /[^\\\/]+(?=\.)/g;
-      const fileName = file.match(rgx)[0];
+      const fileName = isJS ? file.match(rgx)[0] + '-js' : file.match(rgx)[0];
       entries[fileName] = file;
     }
   }
@@ -42,8 +40,8 @@ function templatesEntry(arr) {
 }
 const entries = {
   common: mergePaths([files.common_scssPath, files.common_jsPath]),
-  ...templatesEntry([files.layout_scssPath]),
-  ...templatesEntry([files.templates_scssPath, files.templates_jsPath]),
+  ...templatesEntry([files.templates_scssPath, files.layout_scssPath]),
+  ...templatesEntry([files.templates_jsPath], true),
 };
 
 const config = {
