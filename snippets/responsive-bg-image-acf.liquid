@@ -1,0 +1,39 @@
+{% comment %}
+    It creates a style tag containing "background-image" properties to load the correct image depending on the resolution
+
+	This is for ACF image use only.
+
+    Dependencies:
+    - Lazysizes plugin (https://github.com/aFarkas/lazysizes) which enable responsive image with faster load time and better performance.
+    - Lazysizes Bgset (https://github.com/aFarkas/lazysizes/tree/gh-pages/plugins/bgset) To use responsive images on background-image (CSS)
+    Accepts:
+    - image: {Object} Image object
+    Usage:
+    {%for image in shop.metafields.accentuate.media %}
+    <div class="lazyload" data-bgset="{% include 'responsive-bg-image', image: article.image %}"></div>
+	{%endfor%}
+{% endcomment %}
+
+{%capture imagesizes %}
+{% if image != blank %}
+  {% if image.width > 180 %}{{image.cloudinary_src | append: 'c_fill,w_180'}} 180w {{ 180 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 360 %}{{image.cloudinary_src | append: 'c_fill,w_360'}} 360w {{ 360 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 540 %}{{image.cloudinary_src | append: 'c_fill,w_540'}} 540w {{ 540 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 720 %}{{image.cloudinary_src | append: 'c_fill,w_720'}} 720w {{ 720 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 900 %}{{image.cloudinary_src | append: 'c_fill,w_900'}} 900w {{ 900 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 1080 %}{{image.cloudinary_src | append: 'c_fill,w_1080'}} 1080w {{ 1080 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 1296 %}{{image.cloudinary_src | append: 'c_fill,w_1296'}} 1296w {{ 1296 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 1512 %}{{image.cloudinary_src | append: 'c_fill,w_1512'}} 1512w {{ 1512 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 1728 %}{{image.cloudinary_src | append: 'c_fill,w_1728'}} 1728w {{ 1728 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 1944 %}{{image.cloudinary_src | append: 'c_fill,w_1944'}} 1944w {{ 1944 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 2160 %}{{image.cloudinary_src | append: 'c_fill,w_2160'}} 2160w {{ 2160 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 2376 %}{{image.cloudinary_src | append: 'c_fill,w_2376'}} 2376w {{ 2376 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 2592 %}{{image.cloudinary_src | append: 'c_fill,w_2592'}} 2592w {{ 2592 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 2808 %}{{image.cloudinary_src | append: 'c_fill,w_2808'}} 2808w {{ 2808 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {% if image.width > 3024 %}{{image.cloudinary_src | append: 'c_fill,w_3024'}} 3024w {{ 3024 | divided_by: image.aspect_ratio | round }}h,{%- endif %}
+  {{ image.cloudinary_src | append: 'c_fill,w_' | append: image.width }} {{ image.width }}w {{image.height}} h
+{% endif %}
+{%endcapture%}
+
+
+{{imagesizes}}
