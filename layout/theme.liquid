@@ -1,11 +1,16 @@
 <!doctype html>
-<html class="no-js" lang="{{ shop.locale }}">
+<html class="no-js" lang="{{ request.locale.iso_code }}">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
   <!-- Favicon -->
   {% if settings.favicon %}
-    <link rel="shortcut icon" href="{{ 'favicon.png' | assets_url }}" type="image/png" />
+    <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
   {% endif %}
 
   <!-- Title -->
@@ -22,27 +27,30 @@
   {% endif %}
 
   <!-- SEO and Social Media Meta -->
-  {% include 'social-meta-tags' %}
-  <link rel="canonical" href="{{ canonical_url }}">
-  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-  <meta name="theme-color" content="{{ settings.color_primary }}">
+  {% render 'social-meta-tags' %}
+  
 
   <!-- Shopify Header Hooks -->
   {{ content_for_header }}
   
-  <!-- CSS Vars -->
-  <!-- {% render 'css-vars' %} -->
-  
   <!-- Critical CSS -->
-  <style>{% render 'critical-css' %}</style>
+  {% style %}
+    {% render 'critical-css' %}
+  {% endstyle %}
   
   <!-- Critical JS -->
   <script>{% render 'critical-js' %}</script>
   
 </head>
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }} template-{{ template.suffix }}">
+  <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+    {{ "accessibility.skip_to_text" | t }}
+  </a>
+
+  <!-- Minicart snippet -->
+  {% render 'minicart' %}
   {% section 'header' %} 
-  <main class="main-content" role="main">
+  <main class="main-content" role="main" id="MainContent">
     {{ content_for_layout }}
   </main>
   {% section 'footer' %}
