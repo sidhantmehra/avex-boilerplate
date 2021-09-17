@@ -1,0 +1,11 @@
+<!-- /templates/product.liquid -->
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+
+{% section 'product-new' %}
+
+<!-- Structured Data -->
+{% render 'product-structured-data' %}
+<!-- Product JSON -->
+<script type="application/json" id="product-json">{{ product | json }}</script>

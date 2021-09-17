@@ -1,7 +1,5 @@
 .product {
-  
 }
-
 
 .option-select {
   display: flex;
@@ -10,7 +8,7 @@
     margin: 0.5em;
     position: relative;
     input {
-      &[type=radio]{
+      &[type="radio"] {
         position: absolute;
         left: 0;
         height: 100%;
@@ -33,6 +31,40 @@
       img {
         pointer-events: none;
       }
+    }
+  }
+}
+
+//**CUSTOM SWATCH CSS**//
+.main.product {
+  .product__details{
+    position:sticky;
+    top:50px;
+    max-height:600px;
+  }
+  .product-images-container {
+    position: relative;
+  }
+  .product__thumbnail {
+    position: absolute;
+    top: 200px;
+    left: 50px;
+  }
+  .product-thumbnail__item {
+    width: 50px;
+  }
+  .product-thumbnail__item img {
+    width: 100%;
+  }
+  .custom-swatch {
+    &.active {
+      img{
+        border: 1px solid black;
+      }
+    }
+    img {
+      display: inline-block;
+      margin-right: 1.6rem;
     }
   }
 }
