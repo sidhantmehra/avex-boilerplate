@@ -84,7 +84,9 @@ const pdpSelectors = {
 	product_vendor: '.main.product .product__details .product__vendor',
 	product_price: '.main.product .product__price .current-price',
 	product_compare_price: '.main.product .product__price .compare-at-price',
-	hidden_variant_select: '.main.product #variant-select'
+	hidden_variant_select: '.main.product #variant-select',
+	//use liquid filename for product sections, separated by commas (max 5)
+	product_sections: 'product-swatch-section-1,product-swatch-section-2'
 }
 
 const customSwatches = document.querySelectorAll('.custom-swatch');
@@ -106,7 +108,7 @@ const updateSwatchContent = (swatchJSON) => {
 	//product images
 	const swatchImageTemplate = document.querySelector(pdpSelectors.product_image).cloneNode(true);
 	let newSwatchImagesHTML = '';
-	console.log(swatchJSON);
+	//console.log(swatchJSON);
 	[].forEach.call(swatchJSON.media, (product_image) =>{
 		let imageBlock = swatchImageTemplate;
 		imageBlock.querySelector('img').setAttribute('src', product_image.src);
@@ -114,7 +116,6 @@ const updateSwatchContent = (swatchJSON) => {
 		imageBlock.querySelector('img').setAttribute('alt', swatchJSON.title);
 		newSwatchImagesHTML += imageBlock.outerHTML;
 	});
-	console.log(newSwatchImagesHTML);
 	document.querySelector(pdpSelectors.product_image_container).innerHTML = newSwatchImagesHTML;
 
 
@@ -177,7 +178,16 @@ const updateSwatchContent = (swatchJSON) => {
 	});
 	document.querySelector(pdpSelectors.hidden_variant_select).innerHTML = variantSelectHTML;
 
-
+	//product specific sections
+	fetch(`/products/${swatchJSON.handle}?sections=${pdpSelectors.product_sections}`)
+	.then( res => res.json())
+	.then( out => {
+		for(let productSection in out){
+			document.querySelector(`#shopify-section-${productSection}`).outerHTML = out[productSection];
+			//console.log(productSection);
+			//console.log(out[productSection]);
+		}
+	});
 	window.history.pushState(null,null, swatchJSON.url);
 }
 
