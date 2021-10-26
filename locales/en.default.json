@@ -1,6 +1,5 @@
 {
   "general": {
-
     "meta": {
       "tags": "Tagged \"{{ tags }}\"",
       "page": "Page {{ page }}"
