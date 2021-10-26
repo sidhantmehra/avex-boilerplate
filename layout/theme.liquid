@@ -28,12 +28,17 @@
 
   <!-- SEO and Social Media Meta -->
   {% render 'social-meta-tags' %}
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 79856243af42b63367eb5d67b6ce95af6e537247
 
   <!-- Shopify Header Hooks -->
   {{ content_for_header }}
   
   <!-- Critical CSS -->
   {% style %}
+<<<<<<< HEAD
     {%- render 'critical-css' -%}
   {% endstyle %}
 
@@ -50,17 +55,35 @@
 
   <link rel="preload" href="{{ 'common.min.css' | asset_url }}" as="style" onload="this.onload=null;setTimeout(() => {this.rel='stylesheet'}, 500)">
   <noscript><link rel="stylesheet" href="{{ 'common.min.css' | asset_url }}"></noscript>
+=======
+    {% render 'critical-css' %}
+  {% endstyle %}
+  
+  <!-- Critical JS -->
+  <script>{% render 'critical-js' %}</script>
+>>>>>>> 79856243af42b63367eb5d67b6ce95af6e537247
   
    <!-- Common/Main js file -->
    <script src="{{ 'common.min.js' | asset_url }}" defer="defer"></script>
 
 </head>
+<<<<<<< HEAD
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }} template-{{ template.name }}" style="display: none;">
 
   <a class="skip-to-content-link button visually-hidden" href="#MainContent">Skip to content</a>
 
   {%- section 'header' -%} 
   
+=======
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }} template-{{ template.suffix }}">
+  <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+    {{ "accessibility.skip_to_text" | t }}
+  </a>
+
+  <!-- Minicart snippet -->
+  {% render 'minicart' %}
+  {% section 'header' %} 
+>>>>>>> 79856243af42b63367eb5d67b6ce95af6e537247
   <main class="main-content" role="main" id="MainContent">
     {{ content_for_layout }}
   </main>
