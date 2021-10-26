@@ -11,7 +11,7 @@
           {%- render 'image', image: section.settings.half_image, imageClass: 'cover' -%}
         {%- endif -%}
       </div>  
-      <div class="grid-item half-media-text__body" style="background-color: {{ section.settings.half_bg_color }};">
+      <div class="grid-item half-media-text__body" style="background-color:{{ section.settings.half_bg_color }};">
         <div class="half-media-text__content" style="color: {{ section.settings.half_text_color }};">
           {%- assign hTag = 'h2' -%}
           {%- if section.settings.half_title_tag -%}
