@@ -1,11 +1,16 @@
 <!doctype html>
-<html class="no-js" lang="{{ shop.locale }}">
+<html class="no-js" lang="{{ request.locale.iso_code }}">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+  <link rel="preconnect" href="//cdn.shopify.com" crossorigin>
+
   <!-- Favicon -->
   {% if settings.favicon %}
-    <link rel="shortcut icon" href="{{ 'favicon.png' | assets_url }}" type="image/png" />
+    <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
   {% endif %}
 
   <!-- Title -->
@@ -22,50 +27,80 @@
   {% endif %}
 
   <!-- SEO and Social Media Meta -->
-  {% include 'social-meta-tags' %}
-  <link rel="canonical" href="{{ canonical_url }}">
-  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-  <meta name="theme-color" content="{{ settings.color_primary }}">
+  {% render 'social-meta-tags' %}
 
   <!-- Shopify Header Hooks -->
   {{ content_for_header }}
   
-  <!-- CSS Vars -->
-  <!-- {% render 'css-vars' %} -->
-  
   <!-- Critical CSS -->
-  <style>{% render 'critical-css' %}</style>
+  {% style %}
+    {%- render 'critical-css' -%}
+  {% endstyle %}
+
+   <!-- Critical JS -->
+   <script>
+    {%- render 'critical-js' -%}
+  </script>
+
+  <!-- Third party css files   -->
+  {%- render 'libs-css' -%}
+
+   <!-- Third party js files   -->
+  {%- render 'libs-js' -%}
+
+  <link rel="preload" href="{{ 'common.min.css' | asset_url }}" as="style" onload="this.onload=null;setTimeout(() => {this.rel='stylesheet'}, 500)">
+  <noscript><link rel="stylesheet" href="{{ 'common.min.css' | asset_url }}"></noscript>
   
-  <!-- Critical JS -->
-  <script>{% render 'critical-js' %}</script>
-  
+   <!-- Common/Main js file -->
+   <script src="{{ 'common.min.js' | asset_url }}" defer="defer"></script>
+
 </head>
-<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }} template-{{ template.suffix }}">
-  {% section 'header' %} 
-  <main class="main-content" role="main">
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }} template-{{ template.name }}" style="display: none;">
+
+  <a class="skip-to-content-link button visually-hidden" href="#MainContent">Skip to content</a>
+
+  {%- section 'header' -%} 
+  
+  <main class="main-content" role="main" id="MainContent">
     {{ content_for_layout }}
   </main>
-  {% section 'footer' %}
+
+  {%- section 'footer' -%}
+
+  {%- section 'ajax-cart' -%}
 
    <!-- Cart JSON -->
   <script type="application/json" id="cart-json">{{ cart | json }}</script>
   
-  <!-- Lazyloading assets -->
   <script>
-    document.addEventListener('DOMContentLoaded', async function() {
-        // Dynamic CSS/JS files load
-      {% assign scssname = template.name | append: '.min.css' %}
-      loadFile("{{ 'common.min.css' | asset_url }}", "css");
-      loadFile("{{ scssname | asset_url }}", "css")
+    window.routes = {
+      cart_add_url: '{{ routes.cart_add_url }}',
+      cart_change_url: '{{ routes.cart_change_url }}',
+      cart_update_url: '{{ routes.cart_update_url }}',
+      predictive_search_url: '{{ routes.predictive_search_url }}'
+    };
 
-      {% assign jsname = template.name | append: '-js.min.js' %}
-      loadFile([
-        "{{ 'common.min.js' | asset_url }}", 
-        {% if template.name == 'product' %}"{{ 'option_selection.js' | shopify_asset_url }}",{% endif %}
-        "{{ jsname | asset_url }}",
-        ],"js")  
-    }, false);
+    window.cartStrings = {
+      error: `Error`,
+      quantityError: `Quantity error`
+    }
+
+    window.variantStrings = {
+      addToCart: `Add to cart`,
+      soldOut: `Sold out`,
+      unavailable: `Unavailable`,
+    }
   </script>
-  
+
+  <script async type="text/javascript" src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=WXeasw"></script>
+  <script>
+  var _learnq = _learnq || [];
+  if ('{{ customer.email }}') {
+    _learnq.push(['identify', {
+        '$email' : '{{ customer.email }}'
+      }]);
+  }
+  </script>
+
 </body> 
 </html>

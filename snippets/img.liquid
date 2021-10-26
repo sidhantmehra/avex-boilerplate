@@ -1,0 +1,21 @@
+<!-- <img srcset="example-320w.jpg 320w,
+       example-480w.jpg 480w,
+       example-800w.jpg 800w"
+   sizes="(max-width: 320px) 280px,
+      (max-width: 480px) 440px,
+      800px"
+   src="example-800w.jpg" alt="responsive web!"> -->
+
+
+{%- comment -%} Limit image widths to valid options based on image.width {%- endcomment -%}
+
+
+
+
+<img class=""
+    src="{{ image | img_url: 'master' }}"
+    loading="lazy"
+    width="{{ image.width }}"
+    height="{{ image.height }}"
+    alt="{{ image.alt | escape }}"
+  >

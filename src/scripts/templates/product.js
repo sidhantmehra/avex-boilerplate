@@ -1,4 +1,4 @@
-const CartJS = window.CartJS;
+// const CartJS = window.CartJS;
 const selectors = {
 	form: '#productForm',
 	variantSelectId: 'variant-select',  
@@ -39,14 +39,14 @@ const productForm = document.querySelector(selectors.form)
 productForm.addEventListener('submit', function(e){
 	e.preventDefault()
 	const formData = serializeForm(this)
-	CartJS.addItem(formData.id, formData.quantity, {}, {
-		success: (data, textStatus)=>{
-			console.log('Added to cart: ', data, textStatus)
-		}, 
-		error: (jqXHR, textStatus, errorThrown)=> {
-			console.log('Error in adding to cart: ', errorThrown)
-		}
-	})
+	// CartJS.addItem(formData.id, formData.quantity, {}, {
+	// 	success: (data, textStatus)=>{
+	// 		console.log('Added to cart: ', data, textStatus)
+	// 	}, 
+	// 	error: (jqXHR, textStatus, errorThrown)=> {
+	// 		console.log('Error in adding to cart: ', errorThrown)
+	// 	}
+	// })
 })
 
 

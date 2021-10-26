@@ -14,7 +14,7 @@
     - wrapper_attributes: {String} additional HTML attributes of the <div> wrapper
     Usage:
     In your liquid template file, copy the following line
-    - {% include 'responsive-image' with image: featured_image, image_class: "css-class", wrapper_class: "wrapper-css-class", max_width: 700, max_height: 800 %}
+    - {% render 'responsive-image' with image: featured_image, image_class: "css-class", wrapper_class: "wrapper-css-class", max_width: 700, max_height: 800 %}
 {%- endcomment -%}
 
 {%- comment -%} Added incremental number to avoid conflict styling code when the same images are using this snippet {%- endcomment -%}
@@ -36,10 +36,10 @@
     {%- assign max_height_image = max_width_image | divided_by: img.aspect_ratio -%}
   {%- endif -%}
   #Image-{{ img.id }}-{{ responsive_image_counter }} {
-    max-width: {{ max_width_image }}px;
     max-height: {{ max_height_image }}px;
     width: 100%;
-    /* max-width: 100%; */
+    max-width: 100%;
+    height: auto;
     object-fit: cover;
   }
   #ImageWrapper-{{ img.id }}-{{ responsive_image_counter }}::before {
@@ -74,6 +74,9 @@
     data-aspectratio="{{ img.aspect_ratio }}"
     data-sizes="auto"
     tabindex="-1"
+    loading="lazy"
+    width="{{ img.width }}"
+    height="{{ img.height }}"
     alt="{{ img.alt }}"
     {{ image_attributes }}
   >

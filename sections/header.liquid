@@ -1,46 +1,149 @@
+{% render 'stylesheet', name: 'header' %}
 
-<header data-section-id="{{ section.id }}">
+<div class="header-infobar" style="background-color: {{ section.settings.infobar_bg }}; color: {{ section.settings.infobar_textcolor }}">{{ section.settings.infobar }}</div>
+<div class="header__desktop" >
 	<div class="container">
-		<div class="row">
-			<div class="col-12 col-md-2">
-				<a href="{{ routes.root_url }}" >
-					{% if section.settings.logo_path != '' %}
-					<img src="{{ section.settings.logo_path }}" width="100" height="100"/>
-					{% else %}
-					Site Logo
-					{% endif%}
-				</a>
+		<div class="grid-container">
+			<div class="grid-item">
+				<div class="header__main-logo">
+					<a href="{{ routes.root_url }}">
+						<img src="{{ section.settings.main_logo }}" alt="Balance" loading="lazy" height="200" width="200">
+					</a>
+				</div>
 			</div>
-			<div class="col-12 col-md-8">
-				<nav class="" id="" role="navigation">
-					{% include 'site-nav', linklist: section.settings.main_linklist, wrapper_class: 'customClass' %}
+			<div class="grid-item text-center">
+				<nav class="header__nav" role="navigation">
+					<ul>
+						{% for block in section.blocks %}
+					r	{% assign menuItem = linklists[block.settings.menuitem].links[0] %}
+							<li class="header__nav-item"menu {% if menuItem.links != blank  %}data-mainmenu-hassub{% endif %}>
+								<a class="header__nav-link" href="{{ menuItem.url }}">{{ menuItem.title }}</a>
+								{% if menuItem.links != blank %}
+									{% if block.settings.f_image %}
+										{% render 'menu-item-mega', block: block, menuItem: menuItem %}
+									{% else %}
+										{% render 'menu-item-simple', block: block, menuItem: menuItem %}
+									{% endif%}
+								{% endif %}
+							</li>
+						{% endfor %}
+					</ul>
 				</nav>
 			</div>
-			<div class="col-12 col-md-2">
-				{%- comment -%}
-					To show a number of items in the cart if item_count > 0
-				{%- endcomment -%}
-				<span id="item_count" rv-show="cart.item_count | gt 0" data-cart-view>
-					(<span data-cart-render="item_count">1</span>)
-				</span>
-				
-				{%- comment -%}
-					Include mini cart if needed
-					{% include 'mini-cart' %}
-				{%- endcomment -%}
-				{% if customer %}
-					<a href="{{ routes.account_url }}" class="site-header__icon site-header__account">
-						{{ 'layout.customer.account' | t }}
-					</a>
-				{% else %}
-					<a href="{{ routes.account_login_url }}" class="site-header__icon site-header__account">
-						{{ 'layout.customer.log_in' | t }}
-					</a>
-				{% endif %}
+			<div class="grid-item text-right">
+				<div class="header__quickaccess">
+					{% if section.settings.search_icon %}
+					<div class="header__quickaccess-item">
+						<a href="/search" class="searchlink">{%- render 'icon-search' -%}</a>
+					</div>
+					{% endif %}
+					{% if section.settings.user_icon %}
+					<a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="header__quickaccess-item account">{%- render 'icon-account' -%}</a>
+					{% endif %}
+					{% if template != 'cart' %}
+						{% if section.settings.cart_icon %}
+						<button class="header__quickaccess-item miniCart" data-ajax-cart-toggle-class-button="js-ajax-cart-opened">
+							{% render 'icon-bag' %}
+						</button>
+						<span class="cart-total" data-ajax-cart-bind-state="cart.item_count">{{ cart.item_count }}</span>
+						{% endif %}
+					{% endif %}
+				</div>
 			</div>
 		</div>
 	</div>
-</header>
+</div>
+<div class="header__mobile">
+	<div class="grid-container mob-main">
+		<div class="grid-item">
+			<button class="mob-main__hamburger" data-open-drawer>
+				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<line y1="4.5" x2="16" y2="4.5" stroke="#fff"/>
+				<line y1="8.5" x2="16" y2="8.5" stroke="#fff"/>
+				<line y1="12.5" x2="16" y2="12.5" stroke="#fff"/>
+				</svg>
+			</button>
+		</div>
+		<div class="grid-item text-center">
+			<a href="{{ routes.root_url }}" class="mob-main__logo">
+				<img src="{{ section.settings.main_logo }}" alt="Balance" loading="lazy" height="200" width="200">
+			</a>
+		</div>
+		<div class="grid-item text-right">
+			{% if template != 'cart' %}
+			<button class="mob-main__cart-button miniCart" data-minicart-open>
+				{% render 'icon-bag' %}
+			</button>
+			{% endif %}
+		</div>
+	</div>
+	<div class="mob-drawer" data-drawer>
+		<div class="mob-drawer__top">
+			<ul class="mobtop">
+				
+				<li class="mobtop__item">
+					{% if section.settings.nav_show %}
+						{% if section.settings.main_logo %}
+						<a class="mobtop__link" href="{{ routes.root_url }}">
+							<img src="{{ section.settings.main_logo }}" alt="Balance" loading="lazy" height="20" width="100">
+						</a>
+						{% endif %}
+					{% endif%}
+				</li>
+				
+				
+				<li class="mobtop__item"><button class="close-button" data-close-drawer>
+					{% render 'icon-close' %}
+				</button></li>
+			</ul>
+		</div>
+		<div class="mob-drawer__menu" data-drawer-menuwrap>
+			<nav>
+				<ul class="mobmenu ul" data-drawer-menu>
+					{% for block in section.blocks %}
+						{% assign menuItemMob = linklists[block.settings.menuitem].links[0] %}
+						<li class="mobmenu__item {% if menuItemMob.links != blank %}hasSub{% endif %}" >
+							{% if menuItemMob.links != blank %}
+								<div class="mobmenu__hasSubCover">
+									<a href="{{ menuItemMob.url }}" class="mobmenu__link mainmenu-item">{{ menuItemMob.title }}</a>
+									<button data-drawer-itemtoggle class="mobmenu__openSubButton">
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M7 12L11 8.00003L7 4.00003" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</button>
+								</div>
+							{% else %}
+								<a class="mobmenu__link mainmenu-item" href="{{ menuItemMob.url }}">{{ menuItemMob.title }}</a>
+							{% endif %}
+							
+							{% if menuItemMob.links != blank %}
+								<div class="mobmenu__child" data-drawer-child>
+								
+									<ul class="mobmenu__child-menu">
+										{% for child in menuItemMob.links %}
+										<li class="mobmenu__child-item {% if child.links != blank %}hasGrandSub{% endif %}">
+											<a class="mobmenu__child-link" href="{{ child.url }}">{{ child.title }}</a>
+											{% if child.links != blank %}
+											<ul class="mobmenu__grandChild">
+												{% for grandChild in child.links %}
+												<li class="mobmenu__grandChild-item"><a class="mobmenu__grandChild-link" href="{{ grandChild.url }}">{{ grandChild.title }}</a></li>
+												{% endfor %}
+											</ul>
+											{% endif %}
+										</li>
+										{% endfor %}
+									</ul>
+								</div>
+							{% endif %}
+						</li>
+					{% endfor %}
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+
+{% render 'minicart' %}
 
 {% if request.page_type == 'index' %}
   {% assign potential_action_target = shop.url | append: routes.search_url | append: "?q={search_term_string}" %}
@@ -64,31 +167,138 @@
   "name": {
     "en": "Header"
   },
+  "tag": "header",
+  "class": "header sticky-header",
   "settings": [
     {
 		"type": "header",
-		"content": {
-		"en": "Main Settings",
-		"ru": "Main Settings"
-		}
+		"content": "Infobar settings"
+	},
+	{
+		"type": "richtext",
+		"id": "infobar",
+		"label": "Infobar",
+		"default": "<p>FREE SHIPPING ON ALL DOMESTIC ORDERS OVER $150</p>"
+    },
+	{
+		"type": "color",
+		"id": "infobar_bg",
+		"label": "Infobar Background Color",
+		"default": "#000"
+    },
+	{
+		"type": "color",
+		"id": "infobar_textcolor",
+		"label": "Infobar Text Color",
+		"default": "#fff"
+    },
+	{
+		"type": "header",
+		"content": "Global Navigation"
+	},
+	{
+		"type": "checkbox",
+		"id": "nav_show",
+		"default": true,
+		"label": "Show"
+	 },
+	{
+		"type": "header",
+		"content": "Header settings"
 	},
 	{
 		"type": "text",
-		"id": "logo_path",
-		"label": {
-			"en": "SVG Logo Path",
-			"ru": "SVG Logo Path"
-		}
-    },
+		"id": "main_logo",
+		"label": "Logo Path (svg)"
+	},
 	{
-		"type": "link_list",
-		"id": "main_linklist",
-		"label": {
-			"en": "Menu",
-			"ru": "Menu"
-		},
-		"default": "main-menu"
-	}
-  ]
-}
+		"type": "header",
+		"content": "Quick access"
+	},
+	{
+		"type": "checkbox",
+		"id": "search_icon",
+		"default": true,
+		"label": "Search"
+	 },
+	 {
+		"type": "checkbox",
+		"id": "wish_icon",
+		"default": true,
+		"label": "Wishlist"
+	 },
+	 {
+		"type": "checkbox",
+		"id": "user_icon",
+		"default": true,
+		"label": "Account"
+	 },
+	 {
+		"type": "checkbox",
+		"id": "cart_icon",
+		"default": true,
+		"label": "Cart"
+	 }
+  ],
+  "blocks": [
+      {
+        "type": "menu",
+        "name": "Menu",
+        "settings": [
+          {
+            "id": "menuitem",
+            "type": "link_list",
+            "label": "Menu Item"
+          },
+		  {
+            "id": "f_image",
+            "type": "image_picker",
+            "label": "Featured block Image"
+          },
+		  {
+            "id": "f_image_ord",
+            "type": "select",
+            "label": "Featured block Image Order",
+			"options": [
+				{
+				"value": "0",
+				"label": "First"
+				},
+				{
+				"value": "1",
+				"label": "Second"
+				}
+			],
+			"default": "0"
+          },
+		  {
+            "id": "f_color",
+            "type": "color",
+            "label": "Featured text Color",
+			"default": "#ffffff"
+          },
+		  {
+            "id": "f_pretitle",
+            "type": "text",
+            "label": "Featured block Pre-Title"
+          },
+		  {
+            "id": "f_title",
+            "type": "text",
+            "label": "Featured block Title"
+          },
+		  {
+            "id": "f_urltext",
+            "type": "text",
+            "label": "Featured block Button Text"
+          },
+		  {
+            "id": "f_url",
+            "type": "url",
+            "label": "Featured block Button Url"
+          }
+        ]
+      }
+    ]
+} 
 {% endschema %}

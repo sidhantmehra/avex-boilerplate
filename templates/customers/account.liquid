@@ -34,6 +34,6 @@
   <p><a href="{{ routes.account_addresses_url }}">View ({{ customer.addresses_count }})</a></p>
 
 {% if paginate.pages > 1 %}
-  {% include 'pagination' %}
+  {% render 'pagination' %}
 {% endif %}
 {% endpaginate %}

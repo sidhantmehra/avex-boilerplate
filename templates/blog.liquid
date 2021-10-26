@@ -35,7 +35,7 @@
 
         {% if article.tags.size > 0 %}
           {% comment %} <ul>
-            {% include 'tags-article' %}
+            {% render 'tags-article' %}
           </ul> {% endcomment %}
         {% endif %}
 
@@ -43,7 +43,7 @@
     {% endfor %}
 
     {% if paginate.pages > 1 %}
-      {% comment %} {% include 'pagination' %} {% endcomment %}
+      {% comment %} {% render 'pagination' %} {% endcomment %}
     {% endif %}
 
   </div>
