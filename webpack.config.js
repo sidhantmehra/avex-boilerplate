@@ -5,14 +5,18 @@ const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
 const WebpackHookPlugin = require("webpack-hook-plugin");
 
 const files = {
-  templates_scssPath: "./src/scss/templates/*.scss",
+  // templates_scssPath: "./src/scss/templates/*.scss",
+  sections_scssPath: "./src/scss/sections/*.scss",
   critical_scssPath: "./src/scss/critical.scss",
   common_scssPath: "./src/scss/common.scss",
+  vendor_scssPath: "./src/scss/vendor.scss",
   layout_scssPath: "./src/scss/layouts/*.scss",
 
-  templates_jsPath: "./src/scripts/templates/*.js",
+  // templates_jsPath: "./src/scripts/templates/*.js",
+  sections_jsPath: "./src/scripts/sections/*.js",
   critical_jsPath: "./src/scripts/critical.js",
   common_jsPath: "./src/scripts/common.js",
+  vendor_jsPath: "./src/scripts/vendor.js",
 
   assetsDir: __dirname + "/assets",
   snippetsDir: __dirname + "/snippets",
@@ -32,7 +36,7 @@ function templatesEntry(arr, isJS = false) {
   for (let i = 0; i < arr.length; i++) {
     for (let file of glob.sync(arr[i])) {
       const rgx = /[^\\\/]+(?=\.)/g;
-      const fileName = isJS ? file.match(rgx)[0] + '-js' : file.match(rgx)[0];
+      const fileName = isJS ? file.match(rgx)[0] + "-js" : file.match(rgx)[0];
       entries[fileName] = file;
     }
   }
@@ -40,8 +44,9 @@ function templatesEntry(arr, isJS = false) {
 }
 const entries = {
   common: mergePaths([files.common_scssPath, files.common_jsPath]),
-  ...templatesEntry([files.templates_scssPath, files.layout_scssPath]),
-  ...templatesEntry([files.templates_jsPath], true),
+  vendor: mergePaths([files.vendor_scssPath, files.vendor_jsPath]),
+  ...templatesEntry([files.sections_scssPath]),
+  ...templatesEntry([files.sections_jsPath], true),
 };
 
 const config = {
@@ -65,6 +70,16 @@ const commonFilesConfig = Object.assign({}, config, {
   },
   module: {
     rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /[\\/]node_modules[\\/]/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
+        },
+      },
       {
         test: /\.(scss|css)$/,
         use: [
@@ -120,7 +135,18 @@ const criticalCssConfig = Object.assign({}, config, {
     rules: [
       {
         test: /\.(scss|css)$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader",
+          {
+            loader: "sass-resources-loader",
+            options: {
+              sourceMap: false,
+              resources: [files.resources],
+            },
+          },
+        ],
       },
     ],
   },
@@ -143,7 +169,7 @@ const criticalJsConfig = Object.assign({}, config, {
   },
   experiments: {
     outputModule: true,
-  },
+  }
 });
 
 module.exports = [commonFilesConfig, criticalCssConfig, criticalJsConfig];

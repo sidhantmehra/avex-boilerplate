@@ -25,14 +25,14 @@
           {% for item in search.results %}
             {% if item.object_type == 'product' %}
               {% assign product = item %}
-              {% comment %} {% include 'product-grid-item' %} {% endcomment %}
+              {% comment %} {% render 'product-grid-item' %} {% endcomment %}
             {% else %}
               {{ item.title }}
               {{ item.content | strip_html | truncatewords: 60 }}
             {% endif %}
           {% endfor %}
         {% if paginate.pages > 1 %}
-          {% comment %} {% include 'pagination' %} {% endcomment %}
+          {% comment %} {% render 'pagination' %} {% endcomment %}
         {% endif %}
       {% endif %}
 {% endpaginate %}

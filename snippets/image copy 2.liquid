@@ -1,0 +1,54 @@
+{%- if image -%}
+    {%- liquid 
+        assign imgUrl = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.'
+        assign image_widths = '180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024' | split: ',' 
+        assign srcWidth = ''
+        assign srcSet = ''
+
+    for width in image_widths
+        assign width_num = width | plus: 0 | round
+
+        if image.width >= width_num
+            assign srcWidth = srcWidth | append: width | append: ', '
+            assign xWidth = width | append: 'x'
+            assign imageUrl = image | img_url: xWidth | append: ' ' | append: width | append: 'w'
+            assign srcSet = srcSet | append: imageUrl | append: ', '
+        endif
+       
+    endfor 
+    assign srcWidth = srcWidth | append: image.width
+    assign imgMaster = image.width | append: 'x'
+    assign imgMasterUrl = image | img_url: imgMaster 
+    assign srcSet = srcSet | append: imgMasterUrl | append: ' ' | append: image.width | append: 'w'
+
+    assign isLazy = ''
+    unless isNative 
+        assign isLazy = 'lazyload'
+    endunless
+    -%}
+   <picture>
+    <img 
+            class="{{ isLazy }} {{ imageClass }}" 
+            {%- if isNative -%}
+            src="{{ image | img_url: '1440x' }}" 
+            srcset="{{ srcSet }}" 
+            sizes="(max-width: 180px) 180px,
+            (max-width: 360px) 360px,
+            (max-width: 540px) 540px,
+            (max-width: 720px) 720px,
+            100vw"
+            {%- else -%}
+            data-src="{{ imgUrl }}"
+            data-widths="[{{ srcWidth }}]"
+            data-aspectratio="{{ image.aspect_ratio }}"
+            data-sizes="auto"
+            src="{{ image | img_url: '50x' }}" 
+            {%- endif -%}
+            loading="lazy" 
+            width="{{ image.width }}" 
+            height="{{ image.height }}" 
+            alt="{{ image.alt }}"
+            {{ imageAttributes }}
+            />
+        </picture>
+{%- endif -%}

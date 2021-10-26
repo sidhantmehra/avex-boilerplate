@@ -14,7 +14,7 @@
     - wrapper_attributes: {String} additional HTML attributes of the <div> wrapper
     Usage:
     In your liquid template file, copy the following line
-    - {% include 'responsive-image' with image: featured_image, image_class: "css-class", wrapper_class: "wrapper-css-class", max_width: 700, max_height: 800 %}
+    - {% render 'responsive-image' with image: featured_image, image_class: "css-class", wrapper_class: "wrapper-css-class", max_width: 700, max_height: 800 %}
 {%- endcomment -%}
 
 {%- comment -%} Added incremental number to avoid conflict styling code when the same images are using this snippet {%- endcomment -%}
@@ -35,10 +35,10 @@
     {%- assign max_height_image = max_width_image | divided_by: image.aspect_ratio -%}
   {%- endif -%}
   #Image-{{ image.id }}-{{ responsive_image_counter }} {
-    /* max-width: {{ max_width_image }}px; */
     max-height: {{ max_height_image }}px;
     width: 100%;
     max-width: 100%;
+    height: auto;
     object-fit: cover;
   }
   #ImageWrapper-{{ image.id }}-{{ responsive_image_counter }} {
@@ -65,17 +65,21 @@
   {%- endfor -%}
   {{ image.width }}
 {%- endcapture -%}
+
 {%- assign image_widths = image_widths | strip -%}
 
 <div id="ImageWrapper-{{ image.id }}-{{ responsive_image_counter }}" data-image-id="{{ image.id }}" class="responsive-image__wrapper {{ wrapper_class }}" {{ wrapper_attributes }}>
   <img id="Image-{{ image.id }}-{{ responsive_image_counter }}"
     class="responsive-image__image lazyload {{ image_class }}"
-    src="{{ image | img_url: '300x' }}"
+    src="{{ image | img_url: '50x' }}"
     data-src="{{ img_url }}"
     data-widths="[{{ image_widths }}]"
     data-aspectratio="{{ image.aspect_ratio }}"
     data-sizes="auto"
     tabindex="-1"
+    loading="lazy"
+    width="{{ image.width }}"
+    height="{{ image.height }}"
     alt="{{ image.alt | escape }}"
     {{ image_attributes }}
   >
