@@ -1,6 +1,3 @@
-{% render 'stylesheet', name: 'ajax-cart' %}
-{% comment %}<script src="{{ 'ajax-cart-js.min.js' | asset_url }}" defer="defer"></script>{% endcomment %}
-
 <div class="minicart-wrapper {% if cart.item_count == 0 %}empty{% endif %}" data-ajax-cart-section>
     <div class="overlay" data-ajax-cart-toggle-class-button="js-ajax-cart-opened"></div>
     <div
@@ -52,6 +49,7 @@
                                 <a href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity={{ item.quantity | plus: 1 }}" class="quantity-picker__btn quantity-picker__btn--increase" type="button">&#43;</a>
                             </div>
                             <a href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity=0" class="remove-btn" type="button">Remove</a>
+                            <div class="item-error" data-ajax-cart-messages="{{ item.key }}"></div>
                         </div>
                     </div>
                     {% endfor %}

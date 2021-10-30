@@ -12,14 +12,7 @@
                     {%- for media in product.media -%}
                     <div class="swiper-slide product-thumbnails__item" data-thumbnail-item>
                         {% if media.media_type == 'video' %}
-                        <img 
-                            loading="lazy"
-                            src="{{ media.preview_image | img_url: 'x200'}}"
-                            sizes="auto" 
-                            alt="{{ media.alt }}"
-                            width="99"
-                            height="160"
-                        >
+                          {%- render 'image', image: media.preview_image -%}
                         <span class="video-play">{%- render 'icon-play' -%}</span>
                         {% else %}
                           {%- render 'image', image: media -%}

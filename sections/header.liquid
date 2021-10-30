@@ -15,7 +15,7 @@
 				<nav class="header__nav" role="navigation">
 					<ul>
 						{% for block in section.blocks %}
-					r	{% assign menuItem = linklists[block.settings.menuitem].links[0] %}
+						{% assign menuItem = linklists[block.settings.menuitem].links[0] %}
 							<li class="header__nav-item"menu {% if menuItem.links != blank  %}data-mainmenu-hassub{% endif %}>
 								<a class="header__nav-link" href="{{ menuItem.url }}">{{ menuItem.title }}</a>
 								{% if menuItem.links != blank %}
@@ -70,11 +70,10 @@
 			</a>
 		</div>
 		<div class="grid-item text-right">
-			{% if template != 'cart' %}
-			<button class="mob-main__cart-button miniCart" data-minicart-open>
+			<button class="mob-main__cart-button miniCart" data-ajax-cart-toggle-class-button="js-ajax-cart-opened">
 				{% render 'icon-bag' %}
+				<span class="cart-total" data-ajax-cart-bind-state="cart.item_count">{{ cart.item_count }}</span>
 			</button>
-			{% endif %}
 		</div>
 	</div>
 	<div class="mob-drawer" data-drawer>
@@ -85,7 +84,7 @@
 					{% if section.settings.nav_show %}
 						{% if section.settings.main_logo %}
 						<a class="mobtop__link" href="{{ routes.root_url }}">
-							<img src="{{ section.settings.main_logo }}" alt="Balance" loading="lazy" height="20" width="100">
+							<img src="{{ section.settings.main_logo }}" alt="Logo" loading="lazy" height="20" width="100">
 						</a>
 						{% endif %}
 					{% endif%}
@@ -143,7 +142,6 @@
 	</div>
 </div>
 
-{% render 'minicart' %}
 
 {% if request.page_type == 'index' %}
   {% assign potential_action_target = shop.url | append: routes.search_url | append: "?q={search_term_string}" %}

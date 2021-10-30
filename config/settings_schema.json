@@ -1,5 +1,11 @@
 [
   {
+    "name": "theme_info",
+    "theme_name": "AvexTheme",
+    "theme_version": "2.0",
+    "theme_author": "Sanjar S"
+  },
+  {
     "name": "Base Settings",
     "settings": [
       {

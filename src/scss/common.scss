@@ -1,8 +1,11 @@
 @import "./fonts";
-@import "./minicart.scss";
+// @import "./minicart.scss";
+@import "./sections/ajax-cart.scss";
 @import "swiper/swiper-bundle.min.css";
 
-
+body.js-ajax-cart-opened{
+    overflow: hidden;
+}
 /** Main Styles **/
 img {
     &.cover {

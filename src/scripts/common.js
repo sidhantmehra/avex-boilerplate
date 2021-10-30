@@ -8,8 +8,20 @@ import SwiperCore, {
   Thumbs,
   Mousewheel,
 } from "swiper/core";
-import "./sections/ajax-cart";
+// import "./sections/ajax-cart";
 
+import { subscribeToCartAjaxRequests } from "./sections/ajax-cart";
+
+subscribeToCartAjaxRequests((requestState, subscribeToResult) => {
+  subscribeToResult((requestState) => {
+    if (requestState.requestType === "add" && requestState.responseData?.ok) {
+      setTimeout(() => {
+        document.body.classList.add("js-ajax-cart-opened");
+        console.log("added");
+      }, 100);
+    }
+  });
+});
 
 /**
  * Configure Swiper Modules

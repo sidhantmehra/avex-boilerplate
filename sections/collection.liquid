@@ -9,6 +9,7 @@
   -%}
 
 
+
 <div class="collection-page {% if section.settings.show_collection_image and collection.image %}collection-page--withImage{% endif %}">
   <section class="collection-page__header {% if section.settings.show_collection_image and collection.image %}lazyload{% endif %}" {% if section.settings.show_collection_image and collection.image %}data-bgset="{% render 'responsive-bg-image', image: collection.image %}"{% endif %}>
     {% if section.settings.show_collection_image and collection.image %}<div class="cover" style="opacity: {{ section.settings.collection_cover_opacity }}%; background-color: {{ section.settings.collection_cover_color }};"></div>{% endif %}
@@ -176,60 +177,6 @@
               {%- endfor -%}
             </form>
           </filter-and-sort-form>
-          {% comment %}
-          <tag-filter>
-            <form>
-              {%- if section.settings.tag_filters -%}
-              {%- for link in linklists[section.settings.tag_filters].links -%}
-              <div class="filter__item type-tag js-tag-filter" data-index="{{ forloop.index }}">
-                <div class="summary">
-                  <div class="title">{{ link.title }}</div>
-                 
-                </div>
-                <div class="details">
-                  <ul class="list" role="list">
-                    {% for tag in link.links %}
-                      <li>
-                        <label for="Filter-{{ tag.title | handleize }}-{{ forloop.index }}" class="filter-checkbox">
-                          <input type="checkbox"
-                            name="{{ tag.title | handleize }}"
-                            value="{{ tag.url | escape }}"
-                            id="Filter-{{ tag.title | handleize }}-{{ forloop.index }}"
-                            {% if tag.current %}checked{% endif %}
-                            {% if tag.object.all_products_count == 0 %}disabled{% endif %}
-                          >
-
-                          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                            <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
-                          </svg>
-
-                          <svg class="icon icon-checkmark"
-                            width="11"
-                            height="7"
-                            viewBox="0 0 11 7"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-
-                            <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                              stroke="currentColor"
-                              stroke-width="1.75"
-                              stroke-linecap="round"
-                              stroke-linejoin="round" />
-                          </svg>
-
-                          </svg>
-                          {{ tag.title | escape }}
-                        </label>
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                </div>
-              </div>
-              {%- endfor -%}
-              {%- endif -%}
-            </form>
-          </tag-filter>
-         {% endcomment %}
         </aside>
         <div class="collection-products__listing" id="ProductsList" data-id="{{ section.id }}">
           {%- if collection.products.size == 0 -%}
