@@ -10,14 +10,14 @@ const files = {
   sections_scssPath: "./src/scss/sections/*.scss",
   critical_scssPath: "./src/scss/critical.scss",
   common_scssPath: "./src/scss/common.scss",
-  vendor_scssPath: "./src/scss/vendor.scss",
-  layout_scssPath: "./src/scss/layouts/*.scss",
+  // vendor_scssPath: "./src/scss/vendor.scss",
+  // layout_scssPath: "./src/scss/layouts/*.scss",
 
   // templates_jsPath: "./src/scripts/templates/*.js",
   sections_jsPath: "./src/scripts/sections/*.js",
-  critical_jsPath: "./src/scripts/critical.js",
+  // critical_jsPath: "./src/scripts/critical.js",
   common_jsPath: "./src/scripts/common.js",
-  vendor_jsPath: "./src/scripts/vendor.js",
+  // vendor_jsPath: "./src/scripts/vendor.js",
 
   assetsDir: __dirname + "/assets",
   snippetsDir: __dirname + "/snippets",
@@ -41,14 +41,16 @@ function templatesEntry(arr, isJS = false) {
       entries[fileName] = file;
     }
   }
+  
   return entries;
 }
 const entries = {
   common: mergePaths([files.common_scssPath, files.common_jsPath]),
-  vendor: mergePaths([files.vendor_scssPath, files.vendor_jsPath]),
+  // vendor: mergePaths([files.vendor_scssPath, files.vendor_jsPath]),
   ...templatesEntry([files.sections_scssPath]),
   ...templatesEntry([files.sections_jsPath], true),
 };
+console.log(entries)
 
 const config = {
   mode: "production",
