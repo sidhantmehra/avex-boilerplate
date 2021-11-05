@@ -34,7 +34,6 @@
 
   <!-- Critical CSS -->
   {%- style -%}
-  
     {%- render 'critical-css' -%}
   {%- endstyle -%}
 
@@ -60,7 +59,7 @@
   {%- section 'ajax-cart' -%}
 
    <!-- Cart JSON -->
-  <script type="application/json" id="cart-json">{{ cart | json }}</script>
+   <script type="application/json" data-ajax-cart-initial-state>{{ cart | json }}</script>
   
   <script>
     window.routes = {
