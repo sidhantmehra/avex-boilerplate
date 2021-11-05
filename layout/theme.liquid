@@ -9,9 +9,9 @@
   <link rel="preconnect" href="//cdn.shopify.com" crossorigin>
 
   <!-- Favicon -->
-  {% if settings.favicon %}
+  {%- if settings.favicon -%}
     <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
-  {% endif %}
+  {%- endif -%}
 
   <!-- Title -->
   <title>
@@ -22,42 +22,32 @@
   </title>
 
   <!-- Meta Desc -->
-  {% if page_description %}
+  {%- if page_description -%}
     <meta name="description" content="{{ page_description | escape }}">
-  {% endif %}
+  {%- endif -%}
 
   <!-- SEO and Social Media Meta -->
-  {% render 'social-meta-tags' %}
+  {%- render 'social-meta-tags' -%}
 
   <!-- Shopify Header Hooks -->
   {{ content_for_header }}
-  
+
   <!-- Critical CSS -->
-  {% style %}
-    {%- render 'critical-css' -%}
-  {% endstyle %}
-
-   <!-- Critical JS -->
-   <script>
-    {%- render 'critical-js' -%}
-  </script>
-
-  <!-- Third party css files   -->
-  {%- render 'libs-css' -%}
-
-   <!-- Third party js files   -->
-  {%- render 'libs-js' -%}
-
-  <link rel="preload" href="{{ 'common.min.css' | asset_url }}" as="style" onload="this.onload=null;setTimeout(() => {this.rel='stylesheet'}, 500)">
-  <noscript><link rel="stylesheet" href="{{ 'common.min.css' | asset_url }}"></noscript>
+  {%- style -%}
   
+    {%- render 'critical-css' -%}
+  {%- endstyle -%}
+
+   <!-- Common/Main css file -->
+  {%- render 'stylesheet', name: 'common' -%}
+
    <!-- Common/Main js file -->
    <script src="{{ 'common.min.js' | asset_url }}" defer="defer"></script>
 
 </head>
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }} template-{{ template.name }}" style="display: none;">
 
-  <a class="skip-to-content-link button visually-hidden" href="#MainContent">Skip to content</a>
+  <a class="skip-to-content-link button visually-hidden" href="#MainContent"> {{ 'accessibility.skip_to_text' | t }}</a>
 
   {%- section 'header' -%} 
   
@@ -92,6 +82,7 @@
     }
   </script>
 
+{% comment %}theme-check-disable{% endcomment %}
   <script async type="text/javascript" src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=WXeasw"></script>
   <script>
   var _learnq = _learnq || [];
@@ -101,6 +92,7 @@
       }]);
   }
   </script>
+  {% comment %}theme-check-enable{% endcomment %}
 
 </body> 
 </html>

@@ -17,7 +17,7 @@
           {%- if section.settings.half_title_tag -%}
             {% assign hTag = section.settings.half_title_tag -%}
           {%- endif -%}
-          <{{ hTag }} class="half-media-text__title">{{ section.settings.half_title }}</{{ hTag }}>
+          <h2 class="{{ hTag }} half-media-text__title">{{ section.settings.half_title }}</h2>
           {%- if section.settings.half_text != blank -%}
             <div class="half-media-text__text">
               {{- section.settings.half_text -}}

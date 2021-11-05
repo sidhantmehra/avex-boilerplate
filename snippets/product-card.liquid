@@ -16,13 +16,13 @@
     if  product.tags contains 'label:new'
         assign label = 'products.labels.new' | t 
     endif
-    if variant.inventory_quantity == 0
+    if variant.inventory_quantity == 0 and variant.available == false
         assign label = 'products.labels.soldout' | t
     endif
     if variant.inventory_quantity == 0 and  product.tags contains 'notifyme'
         assign label = 'products.labels.getnotified' | t
     endif
-    if variant.inventory_quantity == 0
+    if variant.inventory_quantity == 0 and variant.available == false
         unless  product.tags contains 'notifyme'
             assign generalClass = 'soldout'
         endunless
@@ -31,7 +31,6 @@
         assign label = 'products.labels.comingsoon' | t
     endif
     -%}
-
 <div class="product-card {{ generalClass }}">
     {% form "product", product, class: 'quickShop' %}
     <div class="product-card__image">
@@ -46,7 +45,7 @@
             {%- endif -%}
         </div>
         
-        <a href="{{ variant.url }}" class="product-card__link"></a>
+        <a href="{{ variant.url }}" class="product-card__link"><span class="visually-hidden">{{ product.title }}</span></a>
 
         {% if label != blank %}
         <div class="product-card__label">
@@ -66,7 +65,7 @@
             {% unless product.tags contains 'comingsoon' %}
                 <button class="add-to-cart-button" type="submit">{{ 'products.product.quickadd' | t }}</button>
             {% else %}
-                <button class="disabled" type="button">{{ 'products.product.comingsoon' | t }}</button>
+                <button class="disabled" type="button">{{ 'products.labels.comingsoon' | t }}</button>
             {% endunless %}
         </div>
         
@@ -82,6 +81,6 @@
         </div>
     </div>
   
-    <div class="product-card__error error-note"></div>
+    <div class="product-card__error error-note" data-ajax-cart-messages="form"></div>
     {% endform %}
 </div>

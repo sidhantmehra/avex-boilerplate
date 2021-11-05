@@ -12,14 +12,7 @@
                     {%- for media in product.media -%}
                     <div class="swiper-slide product-thumbnails__item" data-thumbnail-item>
                         {% if media.media_type == 'video' %}
-                        <img 
-                            loading="lazy"
-                            src="{{ media.preview_image | img_url: 'x200'}}"
-                            sizes="auto" 
-                            alt="{{ media.alt }}"
-                            width="99"
-                            height="160"
-                        >
+                          {%- render 'image', image: media.preview_image -%}
                         <span class="video-play">{%- render 'icon-play' -%}</span>
                         {% else %}
                           {%- render 'image', image: media -%}
@@ -38,7 +31,13 @@
                         {% else %}
                             <div class="swiper-zoom-container">
                                 <figure class="zoom lazyload" data-zoomimg="{{ media.src | img_url: 'x2024' }}">
-                                  {%- render 'image', image: media -%}
+                                  {% if forloop.first == true %}
+                                  {% assign lazyload = true %}
+                                  {% else %}
+                                  {% assign lazyload = false %}
+                                  {% endif %}
+
+                                  {%- render 'image', image: media, notLazy: lazyload, imageSizes: "(min-width: 540px) 100vw, 40vw" -%}
                                 </figure>
                             </div>
                         {% endif %}
@@ -46,8 +45,8 @@
                 {%- endfor -%}
                 </div>
                 {% if product.media.size > 1%}
-                    <div class="swiper-button-next swiper-button">{%- render 'icon-carousel-arrow' -%}</div>
-                    <div class="swiper-button-prev swiper-button">{%- render 'icon-carousel-arrow' -%}</div>
+                    <div class="swiper-button-next swiper-button" aria-label="{{ 'accessibility.previous_slide' | t }}">{%- render 'icon-carousel-arrow' -%}</div>
+                    <div class="swiper-button-prev swiper-button" aria-label="{{ 'accessibility.next_slide' | t }}">{%- render 'icon-carousel-arrow' -%}</div>
                     <div class="swiper-pagination"></div>
                 {% endif %}
             </div>
@@ -64,9 +63,9 @@
                     <h1 class="product-details__title h3">{{ product.title }}</h1>
                   {%- when 'price' -%}
                     <div class="product-details__price" data-price>
-                      <h5 class="price">{{ current_variant.price | money_without_trailing_zeros }}</h5>
+                      <span class="price {% if current_variant.compare_at_price %}sale-price{% endif %}">{{ current_variant.price | money_without_trailing_zeros }}</span>
                       {% if current_variant.compare_at_price > 0 and block.settings.compare_price %}
-                      <h5 class="compare-at-price">{{ current_variant.compare_at_price | money_without_trailing_zeros }}</h5>
+                      <span class="compare-at-price">{{ current_variant.compare_at_price | money_without_trailing_zeros }}</span>
                       {% endif %}
                     </div>
                   {%- when 'payment_terms' -%}
@@ -151,7 +150,7 @@
                     </noscript>
                   {%- when 'quantity_selector' -%}
                     <div class="product-details__quantityblock">
-                        <h6 class="quantity__title">Quantity</h6>
+                        <p class="quantity__title">Quantity</p>
                         <quantity-input class="quantity">
                           <button class="quantity__button no-js-hidden" name="minus" type="button">
                             <span class="visually-hidden">Decrease</span>
@@ -163,6 +162,7 @@
                               id="Quantity-{{ section.id }}"
                               min="1"
                               value="1"
+                              aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
                             >
                           <button class="quantity__button no-js-hidden" name="plus" type="button">
                             <span class="visually-hidden">Increase</span>

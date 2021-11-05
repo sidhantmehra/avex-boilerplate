@@ -20,12 +20,12 @@
         {%- else -%}
         {% if section.settings.hero_img %}
           <div class="desktop">
-            {%- render 'image', image: section.settings.hero_img, imageClass: 'cover' -%}
+            {%- render 'image', image: section.settings.hero_img, imageClass: 'cover', notLazy: true -%}
           </div>
         {% endif %}
         {% if section.settings.hero_img_mob %}
           <div class="mobile">
-              {%- render 'image', image: section.settings.hero_img_mob, imageClass: 'cover' -%}
+              {%- render 'image', image: section.settings.hero_img_mob, imageClass: 'cover', notLazy: true -%}
           </div>
         {% endif %}
         {%- endif -%}
@@ -33,8 +33,8 @@
     <div class="hero-banner__cover" style="opacity: {{ section.settings.hero_cover_opacity }}%; background-color: {{ section.settings.hero_cover_color }};"></div>
     <div class="hero-banner__content" style="align-items: {{ section.settings.vertical_alignment }}; text-align: {{ section.settings.text_align }}; justify-content: {{ section.settings.horizontal_alignment }}">
         <div class="hero-banner__body" style="color: {{ section.settings.hero_text_color }};">
-            {% if section.settings.hero_pre_title != blank %}<h3 class="hero-banner__pretitle h5">{{ section.settings.hero_pre_title }}</h3>{% endif %}
-            {% if section.settings.hero_title != blank %}<{{ section.settings.hero_title_tag }} class="hero-banner__title h1" style="-webkit-text-stroke: 1px {{ section.settings.hero_text_color }};">{{ section.settings.hero_title }}</{{ section.settings.hero_title_tag }}>{% endif %}
+            {% if section.settings.hero_pre_title != blank %}<span class="hero-banner__pretitle h5">{{ section.settings.hero_pre_title }}</span>{% endif %}
+            {% if section.settings.hero_title != blank %}<h2 class="hero-banner__title h1" style="-webkit-text-stroke: 1px {{ section.settings.hero_text_color }};">{{ section.settings.hero_title }}</h2>{% endif %}
             {% if section.settings.hero_text != blank %}<div class="hero-banner__text">{{ section.settings.hero_text }}</div>{% endif %}
             {% if section.settings.hero_b_text != blank %}<div><a href="{{ section.settings.hero_b_url }}" class="hero-banner__link" style="--sec-color: {% if  section.settings.hero_text_color != blank %}{{ section.settings.hero_text_color }}{% else %}#fff{% endif %}">{{ section.settings.hero_b_text }}</a></div>{% endif %}
         </div>
@@ -81,15 +81,6 @@
               "type": "text",
               "id": "hero_title",
               "label": "Title"
-          },
-          {
-            "type": "radio",
-            "id": "hero_title_tag",
-            "options": [
-                { "value": "h1", "label": "H1"},
-                { "value": "h2", "label": "H2"}
-            ],
-            "label": "Title Tag"
           },
           {
               "type": "richtext",

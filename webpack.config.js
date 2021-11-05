@@ -3,20 +3,21 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const glob = require("glob");
 const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
 const WebpackHookPlugin = require("webpack-hook-plugin");
+const mode = process.env.NODE_ENV;
 
 const files = {
   // templates_scssPath: "./src/scss/templates/*.scss",
   sections_scssPath: "./src/scss/sections/*.scss",
   critical_scssPath: "./src/scss/critical.scss",
   common_scssPath: "./src/scss/common.scss",
-  vendor_scssPath: "./src/scss/vendor.scss",
-  layout_scssPath: "./src/scss/layouts/*.scss",
+  // vendor_scssPath: "./src/scss/vendor.scss",
+  // layout_scssPath: "./src/scss/layouts/*.scss",
 
   // templates_jsPath: "./src/scripts/templates/*.js",
   sections_jsPath: "./src/scripts/sections/*.js",
-  critical_jsPath: "./src/scripts/critical.js",
+  // critical_jsPath: "./src/scripts/critical.js",
   common_jsPath: "./src/scripts/common.js",
-  vendor_jsPath: "./src/scripts/vendor.js",
+  // vendor_jsPath: "./src/scripts/vendor.js",
 
   assetsDir: __dirname + "/assets",
   snippetsDir: __dirname + "/snippets",
@@ -40,11 +41,12 @@ function templatesEntry(arr, isJS = false) {
       entries[fileName] = file;
     }
   }
+  
   return entries;
 }
 const entries = {
   common: mergePaths([files.common_scssPath, files.common_jsPath]),
-  vendor: mergePaths([files.vendor_scssPath, files.vendor_jsPath]),
+  // vendor: mergePaths([files.vendor_scssPath, files.vendor_jsPath]),
   ...templatesEntry([files.sections_scssPath]),
   ...templatesEntry([files.sections_jsPath], true),
 };
@@ -58,7 +60,7 @@ const config = {
   watchOptions: {
     ignored: "**/node_modules",
   },
-  watch: true,
+  // watch: true,
 };
 
 const commonFilesConfig = Object.assign({}, config, {
@@ -70,22 +72,35 @@ const commonFilesConfig = Object.assign({}, config, {
   },
   module: {
     rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /[\\/]node_modules[\\/]/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
+      mode === "export"
+        ? {}
+        : {
+            test: /\.(js|jsx)$/,
+            exclude: /[\\/]node_modules[\\/]/,
+            use: {
+              loader: "babel-loader",
+              options: {
+                presets: ["@babel/preset-env"],
+              },
+            },
           },
-        },
-      },
       {
         test: /\.(scss|css)$/,
         use: [
           MiniCssExtractPlugin.loader,
           "css-loader",
-          "sass-loader",
+          {
+            loader: "sass-loader",
+            options:
+              mode === "export"
+                ? {
+                    sourceMap: true,
+                    sassOptions: {
+                      outputStyle: "expanded",
+                    },
+                  }
+                : {},
+          },
           {
             loader: "sass-resources-loader",
             options: {
@@ -119,8 +134,10 @@ const commonFilesConfig = Object.assign({}, config, {
     }),
   ],
   optimization: {
-    minimizer: [new TerserPlugin({ extractComments: false })],
+    minimizer:
+      mode === "export" ? [] : [new TerserPlugin({ extractComments: false })],
   },
+  stats: "errors-only",
 });
 
 const criticalCssConfig = Object.assign({}, config, {
@@ -138,7 +155,18 @@ const criticalCssConfig = Object.assign({}, config, {
         use: [
           MiniCssExtractPlugin.loader,
           "css-loader",
-          "sass-loader",
+          {
+            loader: "sass-loader",
+            options:
+              mode === "export"
+                ? {
+                    sourceMap: true,
+                    sassOptions: {
+                      outputStyle: "expanded",
+                    },
+                  }
+                : {},
+          },
           {
             loader: "sass-resources-loader",
             options: {
@@ -156,20 +184,7 @@ const criticalCssConfig = Object.assign({}, config, {
       filename: "[name].liquid",
     }),
   ],
-});
-const criticalJsConfig = Object.assign({}, config, {
-  name: "Liquid JS",
-  entry: {
-    "critical-js": files.critical_jsPath,
-  },
-  output: {
-    filename: "[name].liquid",
-    path: files.snippetsDir,
-    module: true,
-  },
-  experiments: {
-    outputModule: true,
-  }
+  stats: "errors-only",
 });
 
-module.exports = [commonFilesConfig, criticalCssConfig, criticalJsConfig];
+module.exports = [commonFilesConfig, criticalCssConfig];
