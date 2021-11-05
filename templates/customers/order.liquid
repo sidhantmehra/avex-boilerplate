@@ -1,4 +1,4 @@
-{%- render 'stylesheet', name: 'customer' -%}
+{{ 'customer.min.css' | asset_url | stylesheet_tag }}
 
 <div class="customer order">
   <svg style="display:none">

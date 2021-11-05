@@ -1,10 +1,9 @@
+@import '../partials/form.scss';
+
 .customer:not(.account):not(.order) {
     margin: 6rem auto 9rem;
-    // max-width: 33.4rem;
-    padding: 0 1rem;
     text-align: center;
 }
-
 
 .customer form {
     margin-top: 4rem;
@@ -388,7 +387,6 @@
 /* Account/Order */
 :is(.account, .order) {
     margin: 6rem auto 9rem;
-    padding: 0 1rem;
 }
 
 @media screen and (min-width: 990px) {
@@ -438,6 +436,11 @@
 }
 .customer-header {
     text-align: center;
+}
+.customer-account-body{
+    &__item{
+        margin-bottom: 2rem;
+    }
 }
 .account h1 + a {
     display: inline-flex;
@@ -663,7 +666,7 @@ label[for="AddressProvinceNew"] {
     display: flex;
     flex-wrap: wrap;
 }
-.address-text.default{
+.address-text.default {
     border: 1px solid #000;
 }
 li[data-address] {
@@ -746,7 +749,7 @@ li[data-address] > h2 {
     appearance: none;
     margin: 2rem 5px 1.5rem;
 }
-.customer .button.black{
+.customer .button.black {
     color: #fff;
     background-color: #000;
 }
@@ -754,8 +757,18 @@ li[data-address] > h2 {
     color: #fff;
     max-width: 250px;
     background-color: #000;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
 }
 
-#ProductPopup-newAddress{
+#ProductPopup-newAddress {
     margin-bottom: 2rem;
+}
+.customer {
+    form {
+        max-width: 550px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }

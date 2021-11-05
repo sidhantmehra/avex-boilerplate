@@ -1,5 +1,5 @@
-{%- render 'stylesheet', name: 'customer' -%}
-{%- render 'stylesheet', name: 'form' -%}
+{{ 'customer.min.css' | asset_url | stylesheet_tag }}
+
 <script src="{{ 'customer-js.min.js' | asset_url }}" defer="defer"></script>
 
 {%- paginate customer.addresses by 5 -%}

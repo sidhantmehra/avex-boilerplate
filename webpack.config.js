@@ -50,7 +50,6 @@ const entries = {
   ...templatesEntry([files.sections_scssPath]),
   ...templatesEntry([files.sections_jsPath], true),
 };
-console.log(entries)
 
 const config = {
   mode: "production",

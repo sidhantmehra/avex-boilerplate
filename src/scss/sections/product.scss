@@ -161,7 +161,8 @@
             }
             @include media(tablet) {
                 .swiper-slide {
-                    height: auto;
+                    // height: auto;
+                    height: 300px;
                 }
                 img {
                     height: 100%;
@@ -201,9 +202,13 @@
                     font-weight: 400;
                     margin: 0;
                 }
+                .sale-price{
+                    // color: red;
+                    font-weight: bold;
+                }
                 .compare-at-price {
                     text-decoration: line-through;
-                    opacity: 0.5;
+                    // opacity: 0.5;
                     margin-left: 1rem;
                 }
             }
@@ -429,7 +434,6 @@
         height: 25px;
         border-radius: 50px;
         border: 4px solid grey;
-        border-top-color: black;
         animation: loading 0.5s linear infinite;
     }
 }

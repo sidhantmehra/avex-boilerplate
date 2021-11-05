@@ -60,9 +60,11 @@
     "button_label": "Subscribe"
   },
   "accessibility": {
+    "menu": "Menu",
     "skip_to_text": "Skip to content",
     "skip_to_product_info": "Skip to product information",
     "close": "Close",
+    "open_sub": "Open menu sub item",
     "unit_price_separator": "per",
     "vendor": "Vendor:",
     "error": "Error",
@@ -214,7 +216,7 @@
         "name": "Name",
         "email": "Email",
         "phone": "Phone number",
-        "comment": "Comment",
+        "message": "Message",
         "send": "Send",
         "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
         "error_heading": "Please adjust the following:"
@@ -228,16 +230,24 @@
   "sections": {
     "header": {
       "announcement": "Announcement",
-      "menu": "Menu",
       "cart_count": {
         "one": "{{ count }} item",
         "other": "{{ count }} items"
       }
     },
+    "ajax_cart":{
+      "subtotal": "Subtotal",
+      "go_to_cart": "Go to cart",
+      "checkout": "Checkout",
+      "show_now": "Shop now",
+      "remove": "Remove"
+    },
     "cart": {
       "title": "Your cart",
+      "shop_now": "Shop now",
       "caption": "Cart items",
       "remove_title": "Remove {{ title }}",
+      "remove": "Remove",
       "subtotal": "Subtotal",
       "new_subtotal": "New subtotal",
       "note": "Order special instructions",

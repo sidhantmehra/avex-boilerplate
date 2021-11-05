@@ -31,14 +31,16 @@
 
   <!-- Shopify Header Hooks -->
   {{ content_for_header }}
-  
+
   <!-- Critical CSS -->
   {%- style -%}
+  
     {%- render 'critical-css' -%}
   {%- endstyle -%}
 
+   <!-- Common/Main css file -->
   {%- render 'stylesheet', name: 'common' -%}
-  
+
    <!-- Common/Main js file -->
    <script src="{{ 'common.min.js' | asset_url }}" defer="defer"></script>
 

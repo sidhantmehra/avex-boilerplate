@@ -25,11 +25,10 @@
     -%}
 
     <img 
-        decode="async"
         class="{{ imageClass }}" 
         src="{{ image | img_url: '1440x' }}" 
         srcset="{{ srcSet }}"
-        loading="lazy" 
+        {% unless notLazy %} loading="lazy" {% endunless %}
         width="{{ image.width }}" 
         height="{{ image.height }}" 
         alt="{{ image.alt }}"

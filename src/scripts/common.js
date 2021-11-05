@@ -174,6 +174,7 @@ class ProductCardsCarousel extends HTMLDivElement {
       new Swiper("." + className, {
         slidesPerView: limitPerViewMobile ? limitPerViewMobile : 2,
         spaceBetween: 0,
+        loop: false,
         observer: true,
         observeParents: true,
         allowTouchMove: true,
