@@ -1,7 +1,7 @@
 import { findAncestor, serializeForm } from "./helpers";
-import "lazysizes";
-import "lazysizes/plugins/rias/ls.rias";
-import "lazysizes/plugins/native-loading/ls.native-loading";
+// import "lazysizes";
+// import "lazysizes/plugins/rias/ls.rias";
+// import "lazysizes/plugins/native-loading/ls.native-loading";
 import SwiperCore, {
   Navigation,
   Pagination,
@@ -15,10 +15,7 @@ import { subscribeToCartAjaxRequests } from "./sections/ajax-cart";
 subscribeToCartAjaxRequests((requestState, subscribeToResult) => {
   subscribeToResult((requestState) => {
     if (requestState.requestType === "add" && requestState.responseData?.ok) {
-      setTimeout(() => {
-        document.body.classList.add("js-ajax-cart-opened");
-        console.log("added");
-      }, 100);
+      document.body.classList.add("js-ajax-cart-opened");
     }
   });
 });

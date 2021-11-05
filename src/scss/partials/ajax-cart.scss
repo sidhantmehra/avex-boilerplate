@@ -42,10 +42,13 @@
           0 0 no-repeat;
       }
     }
+    &__body-wrapper{
+      height: 100%;
+    }
     form {
       display: grid;
       grid-auto-rows: calc(75% - 12px) 25%;
-      height: 90%;
+      height: 100%;
       grid-row-gap: 12px;
     }
     &__body {
@@ -151,9 +154,9 @@
     }
     &__footer {
       position: absolute;
-      bottom: 1rem;
-      left: 1rem;
-      right: 1rem;
+      bottom: 2rem;
+      left: 2rem;
+      right: 2rem;
     }
     &__footer-titleSection {
       display: grid;
