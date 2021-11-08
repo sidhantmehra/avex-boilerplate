@@ -36,6 +36,12 @@
   </div>
 </section>
 {%- endif -%}
+
+{% javascript %}
+  // The content from {% javascript %} tags across all sections is concatenated into a single file by Shopify, and then injected into the theme through the content_for_header global Liquid object. 
+  console.log('https://shopify.dev/themes/architecture/sections/section-assets#javascript')
+{% endjavascript %}
+
 {% schema %}
 {
     "name": "50/50 Media & Text",

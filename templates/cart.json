@@ -1,11 +1,12 @@
 {
-    "sections": {
-      "main": {
-        "type": "cart-page"
+  "sections": {
+    "main": {
+      "type": "cart-page",
+      "settings": {
       }
-    },
-    "order": [
-      "main"
-    ]
-  }
-  
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
