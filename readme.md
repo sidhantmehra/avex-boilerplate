@@ -315,7 +315,7 @@ Password: **avex**
     </product-recommendations>
     ```
 	
-## Contributers
+## Contributors
 
 <!-- Copy-paste in your Readme.md file -->
 
