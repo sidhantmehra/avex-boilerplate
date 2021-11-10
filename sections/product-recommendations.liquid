@@ -9,7 +9,7 @@
     <div class="container-max">
     {%- if recommendations.performed and recommendations.products_count > 0 -%}
         {% if section.settings.recc_title != blank %}
-            <h2 class="product-recommendations__title">{{ section.settings.recc_title }}</h2>
+            <h2 class="product-recommendations__title h4">{{ section.settings.recc_title }}</h2>
         {% endif %}
 
         <div is="products-carousel" class="swiper-container products-recommendations-swiper" data-limit_per_view_mobile="{{ section.settings.recc_mob }}" data-limit_per_view="{{ section.settings.recc_desk }}">

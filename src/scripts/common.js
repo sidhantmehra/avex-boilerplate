@@ -103,7 +103,7 @@ class QuantityInput extends HTMLElement {
 customElements.define("quantity-input", QuantityInput);
 
 /**
- * Product Accordion component
+ * Accordion component
  */
 class Accordion extends HTMLElement {
   constructor() {
@@ -216,23 +216,15 @@ class ModalDialog extends HTMLElement {
     this.addEventListener('keyup', (event) => {
       if (event.code.toUpperCase() === 'ESCAPE') this.hide();
     });
-    if (this.classList.contains('media-modal')) {
-      this.addEventListener('pointerup', (event) => {
-        if (event.pointerType === 'mouse' && !event.target.closest('deferred-media, product-model')) this.hide();
-      });
-    } else {
-      this.addEventListener('click', (event) => {
-        if (event.target.nodeName === 'MODAL-DIALOG') this.hide();
-      });
-    }
+    this.addEventListener('click', (event) => {
+      if (event.target.nodeName === 'MODAL-DIALOG') this.hide();
+    });
   }
 
   show(opener) {
     this.openedBy = opener;
-    const popup = this.querySelector('.template-popup');
     document.body.classList.add('overflow-hidden');
     this.setAttribute('open', '');
-    if (popup) popup.loadContent();
   }
 
   hide() {
