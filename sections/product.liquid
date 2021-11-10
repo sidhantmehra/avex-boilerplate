@@ -44,11 +44,11 @@
                     </div>
                 {%- endfor -%}
                 </div>
-                {% if product.media.size > 1%}
+                {%- if product.media.size > 1 -%}
                     <div class="swiper-button-next swiper-button" aria-label="{{ 'accessibility.previous_slide' | t }}">{%- render 'icon-carousel-arrow' -%}</div>
                     <div class="swiper-button-prev swiper-button" aria-label="{{ 'accessibility.next_slide' | t }}">{%- render 'icon-carousel-arrow' -%}</div>
                     <div class="swiper-pagination"></div>
-                {% endif %}
+                {%- endif -%}
             </div>
           </div>
        
@@ -144,7 +144,6 @@
                               </option>
                             {%- endfor -%}
                           </select>
-                          {% render 'icon-caret' %}
                         </div>
                       </div>
                     </noscript>
@@ -233,19 +232,19 @@
 
 <!-- Structured Data -->
 {% render 'product-structured-data' %}
-
+{% comment %}theme-check-disable{% endcomment %}
 <script type="text/javascript">
   var _learnq = _learnq || [];
 
   var item = {
-    Name: {{ product.title|json }},
-    ProductID: {{ product.id|json }},
-    Categories: {{ product.collections|map:'title'|json }},
-    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    Name: {{ product.title | json }},
+    ProductID: {{ product.id | json }},
+    Categories: {{ product.collections | map:'title' | json }},
+    ImageURL: "https:{{ product.featured_image.src | img_url:'grande' }}",
     URL: "{{ shop.secure_url }}{{ product.url }}",
-    Brand: {{ product.vendor|json }},
-    Price: {{ product.price|money|json }},
-    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+    Brand: {{ product.vendor | json }},
+    Price: {{ product.price | money | json }},
+    CompareAtPrice: {{ product.compare_at_price_max | money | json }}
   };
 
   _learnq.push(['track', 'Viewed Product', item]);
@@ -262,7 +261,7 @@
     }
   }]);
 </script>
-
+{% comment %}theme-check-enable{% endcomment %}
 {% schema %}
 {
   "name": "Product page",

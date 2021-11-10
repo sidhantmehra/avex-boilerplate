@@ -38,6 +38,7 @@
       "label": "Pagination",
       "page": "Page {{ number }}",
       "next": "Next page",
+      "current_page": "Page {{ current }} of {{ total }}",
       "previous": "Previous page"
     },
     "search": {
