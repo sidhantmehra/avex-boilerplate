@@ -41,19 +41,14 @@
 	</article>
 	<h2 class="h3 text-center">{{ 'blogs.article.related_articles' | t }}</h2>
 	<div class="article__related-articles">
-		{% assign related_article_counter = 0 %}
-		{% if article.metafields.accentuate.related_articles.size != blank %}
-			{% assign acf_related_articles = article.metafields.accentuate.related_articles | split: '|' %}
-			{% for related_article in acf_related_articles limit: 2 %}
-				{% render 'article-card', article: articles[related_article], show_image: true %}
-				{% assign related_article_counter = related_article_counter | plus: 1 %}
-			{% endfor %}
-		{% endif %}
-		{% for related_article in blog.articles limit: 3 %}
-			{% if related_article.handle != article.handle and related_article_counter < 2 %}
-				{% render 'article-card', article: related_article, show_image: true %}
-				{% assign related_article_counter = related_article_counter | plus: 1 %}
-			{% endif %}
-		{% endfor %}
+		{%- liquid 
+			assign related_article_counter = 0
+			for related_article in blog.articles limit: 3
+				if related_article.handle != article.handle and related_article_counter < 2
+					render 'article-card', article: related_article, show_image: true 
+					assign related_article_counter = related_article_counter | plus: 1
+				endif
+			endfor
+			-%}
 	</div>
 </div>

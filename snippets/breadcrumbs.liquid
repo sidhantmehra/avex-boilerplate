@@ -19,7 +19,7 @@
 		  {% render 'icon-chevron-right' %}
 	    {% endif %}
 	    <li>
-	      <a href="{{collection.url }}{{ product.url }}" class="current" aria-current="page">{{ product.title }}</a>
+	      <a href="{{ collection.url }}{{ product.url }}" class="current" aria-current="page">{{ product.title }}</a>
 	    </li>
 		{% render 'icon-chevron-right' %}
 	{% when 'collection' and collection.handle %}

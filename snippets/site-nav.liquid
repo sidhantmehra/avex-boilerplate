@@ -9,17 +9,15 @@
 {% endcomment %}
 <ul class="site-nav {% if wrapper_class != blank %} {{ wrapper_class }}{% endif %}">
     {% for link in linklists[linklist].links %}
-      {%- assign child_list_handle = link.title | handleize -%}
-  
-      {% comment %}
-        Check if third-level nav exists on each parent link.
-      {% endcomment %}
-      {%- assign three_level_nav = false -%}
-      {% if link.links != blank %}
-        {% if link.levels == 2 %}
-          {%- assign three_level_nav = true -%}
-        {% endif %}
-      {% endif %}
+      {%- liquid 
+        assign child_list_handle = link.title | handleize
+        assign three_level_nav = false
+        if link.links != blank
+          if link.levels == 2
+            assign three_level_nav = true
+          endif
+        endif
+        -%}
   
       {% if link.links != blank %}
         <li class="site-nav--has-dropdown{% if three_level_nav %} site-nav--has-centered-dropdown{% endif %}{% if link.active %} site-nav--active{% endif %}" data-has-dropdowns>

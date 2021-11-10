@@ -10,9 +10,8 @@
 
 
 
-<div class="collection-page {% if section.settings.show_collection_image and collection.image %}collection-page--withImage{% endif %}">
-  <section class="collection-page__header {% if section.settings.show_collection_image and collection.image %}lazyload{% endif %}" {% if section.settings.show_collection_image and collection.image %}data-bgset="{% render 'responsive-bg-image', image: collection.image %}"{% endif %}>
-    {% if section.settings.show_collection_image and collection.image %}<div class="cover" style="opacity: {{ section.settings.collection_cover_opacity }}%; background-color: {{ section.settings.collection_cover_color }};"></div>{% endif %}
+<div class="collection-page">
+  <section class="collection-page__header">
     <div class="container" style="color: {{ section.settings.collection_text_color }};">
       <div class="breadcrumbs">
         {% render 'breadcrumbs' %}
@@ -127,7 +126,6 @@
                   %}
                   <div class="filter__item type-price-range js-filter" data-index="{{ forloop.index }}">
                     <div class="summary">
-                      <!-- {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%} -->
                       <div class="title">{{ filter.label | escape }}</div>
                       {% if filter.active %}<filter-reset class="reset"><a href="{{ filter.url_to_remove }}">clear</a></filter-reset>{% endif %}
                     </div>
@@ -224,26 +222,6 @@
     "id": "show_collection_description",
     "default": false,
     "label": "Show Collection Description"
-  },
-  {
-    "type": "checkbox",
-    "id": "show_collection_image",
-    "default": false,
-    "label": "Show Collection Image"
-  },
-  {
-    "type": "color",
-    "id": "collection_cover_color",
-    "label": "Cover Color"
-  },
-  {
-    "type": "range",
-    "min": 0,
-    "max": 100,
-    "step": 1,
-    "id": "collection_cover_opacity",
-    "label": "Cover Opacity",
-    "default": 0
   },
   {
     "type": "color",

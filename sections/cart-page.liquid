@@ -63,7 +63,7 @@
                       </div>
                     </div>
                     <div class="cart-item__total">
-                      <h5 class="line-total">{{item.final_line_price  | money }}</h5>
+                      <h5 class="line-total">{{ item.final_line_price | money }}</h5>
                       <div class="cart-item__remove">
                         <a href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity=0" class="remove" type="button">{{ 'sections.cart.remove' | t }}</a>
                       </div>

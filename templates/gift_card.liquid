@@ -1,7 +1,6 @@
 {%- render 'stylesheet', name: 'giftcard' -%}
 
 {% assign formatted_initial_value = gift_card.initial_value | money_without_trailing_zeros: gift_card.currency %}
-{% assign formatted_initial_value_stripped = formatted_initial_value | strip_html %}
 
 <div class="giftcard{% if gift_card.expired or gift_card.enabled != true %} disabled{% endif %}">
   <div class="giftcard__content">
@@ -43,7 +42,7 @@
 
     <p class="giftcard__instructions">
       {% assign balance =  gift_card.balance | money %}
-      {{ 'gift_cards.issued.redeem_html' | t: value: balance}}
+      {{ 'gift_cards.issued.redeem_html' | t: value: balance }}
     </p>
 
     <div id="QrCode"></div>
