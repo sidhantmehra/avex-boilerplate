@@ -9,7 +9,7 @@
 		</div>
 		<div class="article__image-container">
 			{% unless article.image == blank %}
-				{% render 'image', image: article.image, imageClass: 'cover' %}
+				{{ article.image | image_url: width: article.image.width | image_tag: preload: true, class: 'cover', loading: "lazy" }}
 			{% endunless %}
 		</div>
 		<div class="container container-min">

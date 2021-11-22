@@ -17,7 +17,7 @@
     <a href="{{ article.url }}" class="article-content motion-reduce">
       {%- if show_image == true and article.image -%}
         <div class="article-card__image media" {% if section.settings.image_height == 'adapt' %} style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"{% endif %}>
-            {%- render 'image', image: article.image, imageClass: 'cover' -%}
+            {{ article.image | image_url: width: article.image.width | image_tag: preload: true, class: 'cover', loading: "lazy" }}
         </div>
       {%- endif -%}
   

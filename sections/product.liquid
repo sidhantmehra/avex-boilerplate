@@ -12,10 +12,10 @@
                     {%- for media in product.media -%}
                     <div class="swiper-slide product-thumbnails__item" data-thumbnail-item>
                         {% if media.media_type == 'video' %}
-                          {%- render 'image', image: media.preview_image -%}
+                          {{ media.preview_image | image_url: width: media.preview_image.width | image_tag: preload: true, loading: "lazy" }}
                         <span class="video-play">{%- render 'icon-play' -%}</span>
                         {% else %}
-                          {%- render 'image', image: media -%}
+                        {{ media | image_url: width: media.width | image_tag: preload: true, loading: "lazy" }}
                         {% endif %}
                     </div>
                 {%- endfor -%}
@@ -26,18 +26,18 @@
                     {%- for media in product.media -%}
                     <div class="swiper-slide product-images__item">
                         {% if media.media_type == 'video' %}
-                          {%- render 'image', image: media.preview_image -%}
+                          {{ media.preview_image | image_url: width: media.preview_image.width | image_tag: preload: true, loading: "lazy" }}
                             <span class="video-play" data-videosrc="{{ media.sources[1].url }}" data-videotype="{{ media.sources[1].mime_type }}">{%- render 'icon-play' -%}</span>
                         {% else %}
                             <div class="swiper-zoom-container">
                                 <figure class="zoom lazyload" data-zoomimg="{{ media.src | img_url: 'x2024' }}">
                                   {% if forloop.first == true %}
-                                  {% assign lazyload = true %}
+                                  {% assign lazyload = "eager" %}
                                   {% else %}
-                                  {% assign lazyload = false %}
+                                  {% assign lazyload = "lazy" %}
                                   {% endif %}
 
-                                  {%- render 'image', image: media, notLazy: lazyload, imageSizes: "(min-width: 540px) 100vw, 40vw" -%}
+                                  {{ media | image_url: width: media.width | image_tag: preload: true, loading: lazyload, sizes: "(min-width: 540px) 100vw, 40vw" }}
                                 </figure>
                             </div>
                         {% endif %}

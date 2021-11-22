@@ -8,7 +8,7 @@
         {%- if section.settings.half_video != blank -%}
           <video class="video" crossorigin="anonymous" autoplay playsinline muted loop poster="{{ section.settings.half_image | img_url: 'master' }}" preload="none" type="video/mp4" src="{{ section.settings.half_video }}"></video>
         {%- else -%}
-          {%- render 'image', image: section.settings.half_image, imageClass: 'cover' -%}
+          {{ section.settings.half_image | image_url: width: section.settings.half_image.width | image_tag: preload: true, class: 'cover', loading: "lazy" }}
         {%- endif -%}
       </div>  
       <div class="grid-item half-media-text__body" style="background-color:{{ section.settings.half_bg_color }};">

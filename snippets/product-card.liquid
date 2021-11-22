@@ -36,11 +36,11 @@
     <div class="product-card__image">
         <div class="images">
             <div class="main-image">
-                {%- render 'image', image: product.featured_media, imageClass: 'cover', imageSizes: '(min-width: 990px) 20vw, 50vw' -%}
+                {{ product.featured_media | image_url: width: product.featured_media.width | image_tag: preload: true, class: 'cover', loading: "lazy", sizes: '(min-width: 990px) 30vw, 50vw' }}
             </div>
             {%- if product.images[1] and showHover -%}
                 <div class="hover-image">
-                    {%- render 'image', image: product.images[1], imageClass: 'cover', imageSizes: '(min-width: 990px) 20vw, 50vw' -%}
+                    {{ product.images[1] | image_url: width: product.images[1].width | image_tag: preload: true, class: 'cover', loading: "lazy", sizes: '(min-width: 990px) 30vw, 50vw' }}
                 </div>
             {%- endif -%}
         </div>
