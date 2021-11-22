@@ -59,7 +59,7 @@
         <div class="product-card__actions {% if product.variants.size == 1 %}only-one{% endif %}">
             <select name="id" class="select-tag {% if product.variants.size == 1 %}visually-hidden{% endif %}">
                 {%- for prodVariant in product.variants -%}
-                    <option data-price="{{ prodVariant.price }}" value="{{ prodVariant.id }}" class="select__list-item" {% if allowDisabled == blank %}{% unless prodVariant.available %}disabled{% endunless%} {% endif %} {% if product.selected_or_first_available_variant.id == prodVariant.id %} selected {% endif %} >{{ prodVariant.title }}</option>
+                    <option data-price="{{ prodVariant.price }}" value="{{ prodVariant.id }}" class="select__list-item" {% if allowDisabled == blank %}{% unless prodVariant.available %}{% endunless%} {% endif %} {% if product.selected_or_first_available_variant.id == prodVariant.id %} selected {% endif %} >{{ prodVariant.title }}</option>
                 {%- endfor -%}
             </select>
             {% unless product.tags contains 'comingsoon' %}
@@ -82,5 +82,6 @@
     </div>
   
     <div class="product-card__error error-note" data-ajax-cart-messages="form"></div>
+    <script type="application/json" data-bis-variants>{{ product.variants | json }}</script>
     {% endform %}
 </div>

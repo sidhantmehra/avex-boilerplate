@@ -116,6 +116,10 @@
       "comingsoon": "Coming Soon"
     },
     "product": {
+      "notify_me": "Notify Me When Available",
+      "notify_me_short": "Notify Me",
+      "notify_me_text": "Register to receive a notification when this item comes back in stock.",
+      "notify_me_success": "You're in! We'll let you know when it's back.",
       "quickadd": "Quick add",
       "add_to_cart": "Add to cart",
       "description": "Description",

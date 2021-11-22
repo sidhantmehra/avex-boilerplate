@@ -131,7 +131,7 @@
                       <div class="product-form__input{% if product.has_only_default_variant %} hidden{% endif %}">
                         <label class="form__label" for="Variants-{{ section.id }}">Variants</label>
                         <div class="select">
-                          <select name="id" id="Variants-{{ section.id }}" class="select__select" form="product-form">
+                          <select name="id" id="Variants-{{ section.id }}" class="select__select" form="product-form" >
                             {%- for variant in product.variants -%}
                               <option
                                 {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
@@ -204,6 +204,8 @@
                   {%- endcase -%}
 
                 {%- endfor -%}
+
+                <script type="application/json" data-bis-variants>{{ product.variants | json }}</script>
               {%- endform -%}
 
               {% assign accordion_items = section.blocks | where: "type", "collapsible_tab" %}
@@ -229,6 +231,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Structured Data -->
 {% render 'product-structured-data' %}
