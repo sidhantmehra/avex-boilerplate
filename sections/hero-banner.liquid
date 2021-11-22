@@ -19,12 +19,12 @@
         {%- else -%}
         {% if section.settings.hero_img %}
           <div class="desktop">
-            {%- render 'image', image: section.settings.hero_img, imageClass: 'cover', notLazy: true -%}
+            {{ section.settings.hero_img | image_url: width: section.settings.hero_img.width | image_tag: preload: true, class: 'cover', sizes: "(min-width: 540px) 100vw, 50vw" }}
           </div>
         {% endif %}
         {% if section.settings.hero_img_mob %}
           <div class="mobile">
-              {%- render 'image', image: section.settings.hero_img_mob, imageClass: 'cover', notLazy: true -%}
+            {{ section.settings.hero_img_mob | image_url: width: section.settings.hero_img.width | image_tag: preload: true, class: 'cover', sizes: "(min-width: 540px) 100vw, 50vw" }}
           </div>
         {% endif %}
         {%- endif -%}

@@ -17,7 +17,7 @@
                 <div class="cart-main__row cart-item">
                     <div class="cart-item__image">
                       <a href="{{ item.url }}">
-                        {%- render 'image', image: item.image, imageClass: 'auto' -%}
+                        {{ item.image | image_url: width: item.image.width | image_tag: preload: true, class: 'auto', loading: "lazy" }}
                       </a>
                     </div>
                     <div class="cart-item__name">
