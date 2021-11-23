@@ -54,7 +54,8 @@ Password: **avex**
     ```
 4. Based on Shopify [DAWN Theme](https://github.com/Shopify/dawn).
 
-5. Responsive Image using native `loading='lazy'` - `/snippets/image.liquid`
+5. ⚠️~~Responsive Image using native `loading='lazy'` - `/snippets/image.liquid`~~
+	<br>Use native shopify ``image_tag`` [filter](https://shopify.dev/api/liquid/filters/html-filters#image_tag)
 6. CSS Lazyload - `/snippets/stylesheet.liquid`
 7. JS load using defer - 
     ```javascript
@@ -314,7 +315,15 @@ Password: **avex**
     {%- endif -%}
     </product-recommendations>
     ```
-	
+6.  🆕**Klaviyo Back in Stock widget**
+	<br>Usage:
+     ```html 
+    1. Copy paste {%- section 'klaviyo-backinstock' -%} to theme.liquid
+    2. In product.liquid add <script type="application/json" data-bis-variants>{{ product.variants | json }}</script> inside product form. (if you already have it just add data-bis-vaiants attribute)
+    3. Adjust klaviyo ID in this section. (in code or create section fields and let the client to edit it)
+   	```
+
+
 ## Contributors
 
 <!-- Copy-paste in your Readme.md file -->
