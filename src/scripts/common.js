@@ -10,7 +10,7 @@ import SwiperCore, {
 } from "swiper/core";
 // import "./sections/ajax-cart";
 
-import { subscribeToCartAjaxRequests } from "./sections/ajax-cart";
+import { subscribeToCartAjaxRequests } from "./ajax-cart";
 
 subscribeToCartAjaxRequests((requestState, subscribeToResult) => {
   subscribeToResult((requestState) => {

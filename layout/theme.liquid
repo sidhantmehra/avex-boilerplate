@@ -57,8 +57,14 @@
   {%- section 'ajax-cart' -%}
   {%- section 'klaviyo-backinstock' -%}
 
-   <!-- Cart JSON -->
-   <script type="application/json" data-ajax-cart-initial-state>{{ cart | json }}</script>
+  <!-- Cart JSON -->
+  <script type="application/json" data-ajax-cart-initial-state>{{ cart | json }}</script>
+  <script type="application/json" data-ajax-cart-configuration >
+    {
+      "requestErrorText": "{{ 'sections.cart.cart_error' | t }}",
+      "lineItemQuantityErrorText": "{{ 'sections.cart.cart_quantity_error' | t }}"
+    }
+  </script>
   
   <script>
     window.routes = {
