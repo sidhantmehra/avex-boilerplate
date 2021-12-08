@@ -35,9 +35,11 @@
     {% form "product", product, class: 'quickShop' %}
     <div class="product-card__image">
         <div class="images">
+            {%- if product.featured_media != blank -%}
             <div class="main-image">
                 {{ product.featured_media | image_url: width: product.featured_media.width | image_tag: preload: true, class: 'cover', loading: "lazy", sizes: '(min-width: 990px) 30vw, 50vw' }}
             </div>
+            {%- endif -%}
             {%- if product.images[1] and showHover -%}
                 <div class="hover-image">
                     {{ product.images[1] | image_url: width: product.images[1].width | image_tag: preload: true, class: 'cover', loading: "lazy", sizes: '(min-width: 990px) 30vw, 50vw' }}
